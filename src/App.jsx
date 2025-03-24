@@ -1,11 +1,15 @@
-import React from "react"
-function App() {
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './Composants/Home.jsx';
 
+const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  )
-}
+  
+    <Router>
+        <Home />
+       
+      
+    </Router>
+  );
+};
 
-export default App
+export default App;
