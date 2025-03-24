@@ -4,7 +4,7 @@ import Home from "./Composants/Home";
 function App() {
   return (
     <Router>
-      <Home />
+      <Home /> 
     </Router>
   );
 }
