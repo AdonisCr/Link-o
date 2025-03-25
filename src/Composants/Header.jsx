@@ -40,9 +40,9 @@ function Header() {
         {/* Conteneur Mobile : Menu + Boutons alignés */}
         <div className="flex items-center gap-4 lg:hidden  sm:text-xs">
           {/* Boutons Sign in & Sign up (Visibles même sur mobile) */}
-          <button className="text-linac ">Sign in</button>
+          <button className="text-linac ">Se Connecter</button>
           <button className="bg-linac text-Whites px-2 py-1 rounded-lg">
-            Sign up
+            S'inscrire
           </button>
 
           {/* Menu Mobile Button */}
@@ -62,10 +62,11 @@ function Header() {
               Acceuil
             </li>
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              A Propos            </li>
+              A Propos{" "}
+            </li>
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              Fonctionnalite 
-            {/* </li>
+              Fonctionnalite
+              {/* </li>
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               Our Works
             </li>
