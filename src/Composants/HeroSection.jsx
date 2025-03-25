@@ -1,9 +1,9 @@
 import React from "react";
+import Short from "./Short";
 
 function HeroSection() {
   return (
     <section className="w-full bg-Indigolight  relative mt-16 md:mt-[70px] lg:mt-20  py-10 flex flex-col gap-10 ">
-      {/* <img src="../assets/images/Vector.png" className="w-full " alt="" /> */}
       <div className="w-full max-w-[90%] md:max-w-[80%] mx-auto text-center gap-4 md:gap-6 flex flex-col px-4">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-Whites leading-tight">
           La Solution Pour Vos Liens <br />
@@ -19,7 +19,9 @@ function HeroSection() {
         </h3>
       </div>
 
-      <div className="w-[80%] md:w-[60%] mx-auto flex flex-col  gap-5  item-center text-center ">
+      <Short />
+
+      {/* <div className="w-[80%] md:w-[60%] mx-auto flex flex-col  gap-5  item-center text-center ">
         <p className="text-Whites font-medium ">
           Le raccourcisseur d'URL le plus simple que vous attendiez
         </p>
@@ -46,7 +48,7 @@ function HeroSection() {
             Copier URL{" "}
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
