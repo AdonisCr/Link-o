@@ -2,9 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate(); 
 
   return (
     // <header className="w-full bg-Blacks py-4 font-semibold text-lg ">
@@ -12,7 +14,7 @@ function Header() {
     //     <img src="/src/assets/images/logo.png" alt="" className="w-40" />
     //     <nav className="flex items-center justify-center gap-12">
     //       <ul className="flex  text-Whites font-semibold text-lg gap-10">
-    //         <li>Home</li>
+    //         <li>Home</li
     //         <li>About Us</li>
     //         <li>Features</li>
     //         <li>Our Works</li>
@@ -79,9 +81,12 @@ function Header() {
         {/* Boutons visibles en mode desktop */}
         <div className="hidden lg:flex gap-6 items-center">
           <button className="text-linac ">Se Connecter</button>
-          <button className="bg-linac text-Whites px-4 py-2 rounded-lg">
-            S'inscrire
-          </button>
+          <button
+      className="bg-linac text-Whites px-4 py-2 rounded-lg"
+      onClick={() => navigate("/signup")}
+    >
+      S'inscrire
+    </button>
         </div>
       </div>
     </header>
