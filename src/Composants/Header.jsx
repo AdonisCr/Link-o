@@ -43,7 +43,7 @@ function Header() {
         <div className="flex items-center gap-4 lg:hidden  sm:text-xs">
           {/* Boutons Sign in & Sign up (Visibles même sur mobile) */}
           <button className="text-linac "  onClick={() => navigate("/Connexion")}>Se Connecter</button>
-          <button className="bg-linac text-Whites px-2 py-1 rounded-lg" onClick={() => navigate("/SignUp")}>  
+          <button className="bg-linac text-Whites px-2 py-1 rounded-lg" onClick={() => navigate("/Inscription")}>  
             S'inscrire
           </button>
 
@@ -83,7 +83,7 @@ function Header() {
           <button className="text-linac "  onClick={() => navigate("/Connexion")}>Se Connecter</button>
           <button
       className="bg-linac text-Whites px-4 py-2 rounded-lg"
-      onClick={() => navigate("/signup")}
+      onClick={() => navigate("/Inscription")}
     >
       S'inscrire
     </button>
