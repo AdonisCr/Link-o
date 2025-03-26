@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Connexion = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
+
+    const navigate = useNavigate();
+
 
     const validateForm = () => {
         let newErrors = {};
@@ -24,15 +29,16 @@ const Connexion = () => {
         e.preventDefault();
         if (validateForm()) {
             console.log("Connexion réussie !");
+            navigate("/dashboard");
         }
     };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-            <img src="../src/assets/logo.png" alt="" className="w-24 sm:w-28 md:w-32 lg:w-40 absolute top-0 left-0 hidden lg:block" />
+            <img src="../src/assets/images/logo.png" alt="" className="w-24 sm:w-28 md:w-32 lg:w-40 absolute top-0 left-0 hidden lg:block" />
             <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-4xl overflow-hidden">
                 <div className="w-1/2 relative hidden md:block">
-                    <img src="./src/assets/Link.webp" alt="Login" className="w-full h-full object-cover" />
+                    <img src="./src/assets/images/Link.webp" alt="Login" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-purple-600 opacity-50"></div>
                 </div>
                 <div className="w-full md:w-1/2 p-8">
@@ -41,7 +47,7 @@ const Connexion = () => {
                         <div className="w-full">
                             <label className="block text-gray-700 mb-1">Email</label>
                             <div className="relative flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-purple-600">
-                                <img src="../src/assets/envelope-regular-24.png" alt="Email Icon" className="w-5 h-5 text-gray-500 ml-3" />
+                                <img src="../src/assets/images/envelope-regular-24.png" alt="Email Icon" className="w-5 h-5 text-gray-500 ml-3" />
                                 <input type="email" className="w-full px-3 py-2 outline-none" placeholder="Entrez votre adresse mail" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
                             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -49,7 +55,7 @@ const Connexion = () => {
                         <div className="mt-4 w-full">
                             <label className="block text-gray-700 mb-1">Mot de passe</label>
                             <div className="relative flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-purple-600">
-                                <img src="../src/assets/lock-open-regular-24.png" alt="Lock Icon" className="w-5 h-5 text-gray-500 ml-3" />
+                                <img src="../src/assets/images/lock-open-regular-24.png" alt="Lock Icon" className="w-5 h-5 text-gray-500 ml-3" />
                                 <input type="password" className="w-full px-3 py-2 outline-none" placeholder="Entrez votre mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
                             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
@@ -72,7 +78,7 @@ const Connexion = () => {
 {/* Lien vers l'inscription */}
 <div className="mt-4 text-center text-sm">
     <span className="text-gray-600">Vous n'avez pas de compte ? </span>
-    <a href="#" className="text-purple-600 font-semibold hover:underline"  onClick={() => navigate("/SignUp")}>S'inscrire</a>
+    <a href="#" className="text-purple-600 font-semibold hover:underline"  onClick={() => navigate("/Inscription")}>S'inscrire</a>
 </div>
 
                     </form>
