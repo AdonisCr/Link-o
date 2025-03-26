@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   return (
     // <header className="w-full bg-Blacks py-4 font-semibold text-lg ">
@@ -82,11 +82,11 @@ function Header() {
         <div className="hidden lg:flex gap-6 items-center">
           <button className="text-linac ">Se Connecter</button>
           <button
-      className="bg-linac text-Whites px-4 py-2 rounded-lg"
-      onClick={() => navigate("/signup")}
-    >
-      S'inscrire
-    </button>
+            className="bg-linac text-Whites px-4 py-2 rounded-lg"
+            onClick={() => navigate("/signup")}
+          >
+            S'inscrire
+          </button>
         </div>
       </div>
     </header>

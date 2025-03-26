@@ -31,11 +31,11 @@ const SignUp = () => {
     return (
 
         <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-            <img src="../src/assets/logo.png" alt="" className="w-[150px] h-[70px] absolute top-0 left-0 hidden lg:block" />
+            <img src="../src/assets/images/logo.png" alt="" className="w-[150px] h-[70px] absolute top-0 left-0 hidden lg:block" />
             <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-4xl overflow-hidden">
                 {/* Image Section */}
                 <div className="w-1/2 relative hidden md:block">
-                    <img src="./src/assets/Link.webp" alt="Signup" className="w-full h-full object-cover" />
+                    <img src="./src/assets/images/Link.webp" alt="Signup" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-purple-600 opacity-50"></div>
                 </div>
 
@@ -49,13 +49,13 @@ const SignUp = () => {
 
                             {/* Bouton Google */}
                             <button className="flex items-center justify-center w-full py-2 border rounded-lg gap-2 hover:bg-gray-50 transition cursor-pointer hover:shadow-lg">
-                                <img src="../src/assets/google-logo-24.png" alt="Google" className=" w-5 h-5" />
+                                <img src="../src/assets/images/google-logo-24.png" alt="Google" className=" w-5 h-5" />
                                 <p className="font-semibold">Sign up with google</p>
                             </button>
 
                             {/* Bouton Apple */}
                             <button className="flex items-center justify-center w-full py-2 border rounded-lg hover:bg-gray-50 transition cursor-pointer hover:shadow-lg">
-                                <img src="../src/assets/apple-logo-24.png" alt="Apple" className="w-5 h-5 mr-2" />
+                                <img src="../src/assets/images/apple-logo-24.png" alt="Apple" className="w-5 h-5 mr-2" />
                                 <p className="font-semibold">Sign up with Apple</p>
                             </button>
 
@@ -78,7 +78,7 @@ const SignUp = () => {
 
                                 {/* Icône à gauche */}
                                 <img
-                                    src="../src/assets/user-regular-24.png"
+                                    src="../src/assets/images/user-regular-24.png"
                                     alt="User Icon"
                                     className="w-5 h-5 text-gray-500 ml-3"
                                 />
@@ -103,7 +103,7 @@ const SignUp = () => {
 
                                 {/* Icône email */}
                                 <img
-                                    src="../src/assets/envelope-regular-24.png"
+                                    src="../src/assets/images/envelope-regular-24.png"
                                     alt="Email Icon"
                                     className="w-5 h-5 text-gray-500 ml-3"
                                 />
@@ -131,7 +131,7 @@ const SignUp = () => {
 
                                 {/* Icône mot de passe */}
                                 <img
-                                    src="../src/assets/lock-open-regular-24.png"
+                                    src="../src/assets/images/lock-open-regular-24.png"
                                     alt="Lock Icon"
                                     className="w-5 h-5 text-gray-500 ml-3"
                                 />

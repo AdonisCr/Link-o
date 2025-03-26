@@ -51,7 +51,7 @@ const Footer = () => {
             </h3>
             <div className="flex gap-2 items-center justify-center md:items-start md:justify-start ">
               <img
-                src="../src/assets/location-plus-solid-24.png"
+                src="../src/assets/images/location-plus-solid-24.png"
                 alt=""
                 className="bg-white rounded-full p-1 size-7"
               />
@@ -59,7 +59,7 @@ const Footer = () => {
             </div>
             <div className="flex gap-2 items-center justify-center md:items-start md:justify-start ">
               <img
-                src="../src/assets/phone-solid-24.png"
+                src="../src/assets/images/phone-solid-24.png"
                 alt=""
                 className="bg-white rounded-full p-1 size-7"
               />
@@ -67,7 +67,7 @@ const Footer = () => {
             </div>
             <div className="flex gap-2 items-center justify-center md:items-start md:justify-start ">
               <img
-                src="../src/assets/location-plus-solid-24.png"
+                src="../src/assets/images/location-plus-solid-24.png"
                 alt=""
                 className="bg-white rounded-full p-1 size-7"
               />

@@ -4,7 +4,7 @@ const About = () => {
   const blogs = [
     {
       id: 1,
-      imag: "./src/assets/like-regular-24.png",
+      imag: "./src/assets/images/like-regular-24.png",
       name: "Simple et rapide",
       descr2:
         "Link-O est conçu pour être intuitif et ultra-rapide. Il suffit d’entrer une URL longue pour obtenir un lien raccourci instantanément.",
@@ -12,14 +12,14 @@ const About = () => {
 
     {
       id: 2,
-      imag: "./src/assets/link-regular-24.png",
+      imag: "./src/assets/images/link-regular-24.png",
       name: "Raccourcissement Illimité",
       descr2:
         "Que votre lien soit long ou complexe, Link-o le simplifie toujours pour vous garantir une URL courte et propre.",
     },
     {
       id: 3,
-      imag: "./src/assets/lock-regular-24.png",
+      imag: "./src/assets/images/lock-regular-24.png",
       name: " Sécurisé et Fiable",
       descr2:
         "Protocoles HTTPS et chiffrement des données pour protéger chaque lien.Détection et suppression automatique des liens malveillants",
@@ -34,7 +34,7 @@ const About = () => {
     },
     {
       id: 5,
-      imag: "./src/assets/camera-home-regular-24.png",
+      imag: "./src/assets/images/camera-home-regular-24.png",
       name: "Compatible avec Tous les Appareils",
       descr2:
         "Link-o fonctionne sur mobile, tablette et ordinateur, pour une accessibilité optimale où que vous soyez.",
@@ -42,7 +42,7 @@ const About = () => {
 
     {
       id: 6,
-      imag: "./src/assets/share-alt-regular-24.png",
+      imag: "./src/assets/images/share-alt-regular-24.png",
       name: "Partage facile",
       descr2:
         "Boutons de partage rapide vers les réseaux sociaux .Intégration directe dans des emails ou messages.",
