@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './Composants/Home.jsx';
-import Inscription from './Composants/Inscription.jsx';
-import Connexion from './Composants/Connexion.jsx';
+import Home from './pages/Home.jsx';
+import Inscription from './pages/Auth/Inscription.jsx';
+import Connexion from './pages/Auth/Connexion.jsx';
 const App = () => {
   return (
   

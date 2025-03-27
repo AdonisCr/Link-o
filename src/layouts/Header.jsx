@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   return (
     // <header className="w-full bg-Blacks py-4 font-semibold text-lg ">
