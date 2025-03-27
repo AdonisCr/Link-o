@@ -9,7 +9,6 @@ const About = () => {
       descr2:
         "Link-O est conçu pour être intuitif et ultra-rapide. Il suffit d’entrer une URL longue pour obtenir un lien raccourci instantanément.",
     },
-
     {
       id: 2,
       imag: "./src/assets/images/link-regular-24.png",
@@ -22,12 +21,11 @@ const About = () => {
       imag: "./src/assets/images/lock-regular-24.png",
       name: " Sécurisé et Fiable",
       descr2:
-        "Protocoles HTTPS et chiffrement des données pour protéger chaque lien.Détection et suppression automatique des liens malveillants",
+        "Protocoles HTTPS et chiffrement des données pour protéger chaque lien. Détection et suppression automatique des liens malveillants.",
     },
-
     {
       id: 4,
-      imag: "./src/assets/signal-5-regular-24.png",
+      imag: "./src/assets/images/signal-5-regular-24.png",
       name: "Suivi et Statistiques",
       descr2:
         "Analyse des clics : découvrez combien de fois votre lien a été ouvert.",
@@ -39,21 +37,21 @@ const About = () => {
       descr2:
         "Link-o fonctionne sur mobile, tablette et ordinateur, pour une accessibilité optimale où que vous soyez.",
     },
-
     {
       id: 6,
       imag: "./src/assets/images/share-alt-regular-24.png",
       name: "Partage facile",
       descr2:
-        "Boutons de partage rapide vers les réseaux sociaux .Intégration directe dans des emails ou messages.",
+        "Boutons de partage rapide vers les réseaux sociaux. Intégration directe dans des emails ou messages.",
     },
   ];
+
   return (
-    <section className="h-full w-full ">
-      <div className="w-[90%] mx-auto  bg-white flex flex-col">
-        <div className=" flex flex-col justify-center items-center p-8">
-          <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer  hover:scale-95 transition-all duration-300">
-            Qu'est ce que Link-o ?
+    <section className="h-full w-full">
+      <div className="w-[90%] mx-auto bg-white flex flex-col">
+        <div className="flex flex-col justify-center items-center p-8">
+          <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer hover:scale-95 transition-all duration-300">
+            Qu'est-ce que Link-o ?
           </h2>
           <p className="text-center p-8 text-lg">
             <span className="font-bold">Link-o</span> est un raccourcisseur
@@ -65,21 +63,25 @@ const About = () => {
           </p>
         </div>
       </div>
-      <div className="bg-purple-50 py-10 ">
-        <div className="grid grid-cols-1 md:grid-cols-3 grid-rows-2 justify-between w-[90%] items-start mx-auto gap-x-10 gap-y-5 ">
+
+      {/* Section des icônes animées */}
+      <div className="bg-purple-50 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 grid-rows-2 justify-between w-[90%] items-start mx-auto gap-x-10 gap-y-5">
           {blogs.map((blog) => (
             <div
               key={blog.id}
-              className="flex  py-  hover:scale-95 transition-all duration-300"
+              className="flex py-4 hover:scale-95 transition-all duration-300"
             >
               <div className="flex flex-col gap-3 justify-center items-center text-center">
-                <img className="w-10 h-10 " src={blog.imag} alt="" />
+                {/* Ajout de l'animation sur l'icône */}
+                <img
+                  className="w-12 h-12 animate-spin-slow animate-swing"
+                  src={blog.imag}
+                  alt={blog.name}
+                />
 
-                <h1 className="text-black font-semibold text-xl">
-                  {" "}
-                  {blog.name}{" "}
-                </h1>
-                <h1 className="text-black text-lg"> {blog.descr2} </h1>
+                <h1 className="text-black font-semibold text-xl">{blog.name}</h1>
+                <h1 className="text-black text-lg">{blog.descr2}</h1>
               </div>
             </div>
           ))}

@@ -31,11 +31,8 @@ const Inscription = () => {
     return (
 
         <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-<<<<<<<< HEAD:src/pages/Auth/SignUp.jsx
-            <img src="../src/assets/images/logo.png" alt="" className="w-[150px] h-[70px] absolute top-0 left-0 hidden lg:block" />
-========
+
             <img src="../src/assets/images/logo.png" alt="" className="w-24 sm:w-28 md:w-32 lg:w-40 absolute top-0 left-0 hidden lg:block" />
->>>>>>>> main:src/pages/Auth/Inscription.jsx
             <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-4xl overflow-hidden">
                 {/* Image Section */}
                 <div className="w-1/2 relative hidden md:block">
