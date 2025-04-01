@@ -1,6 +1,6 @@
 const SideBar = ({ activeTab, onTabChange }) => {
   return (
-    <div className="w-auto md:w-[18%] bg-Blacks text-white h-screen px-4 flex flex-col gap-5">
+    <div className="w-auto md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 flex flex-col gap-5">
       <div className="md:hidden flex justify-start pt-4">
         <button className="text-white focus:outline-none">
           <svg
@@ -29,7 +29,7 @@ const SideBar = ({ activeTab, onTabChange }) => {
       <div className="flex flex-col gap-5 items-center md:items-start justify-center w-full">
         <ul className="text-white flex flex-col gap-2 font-semibold">
           <li
-            className={`flex items-center gap-4 cursor-pointer rounded-lg py-2 md:pr-20 md:px-1 px-0 ${
+            className={`flex items-center gap-4 cursor-pointer rounded-lg py-2 md:pr-10 md:px-1 px-0 ${
               activeTab === "dashboard"
                 ? "bg-Whites text-Blacks"
                 : "text-Whites hover:bg-Whites hover:text-Blacks"
