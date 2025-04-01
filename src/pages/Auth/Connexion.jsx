@@ -34,26 +34,73 @@ const Connexion = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      <img
-        src="../src/assets/images/logo.png"
-        alt=""
-        className="w-24 sm:w-28 md:w-32 lg:w-40 absolute top-0 left-0 hidden lg:block"
-      />
-      <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-4xl overflow-hidden">
-        <div className="w-1/2 relative hidden md:block">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
+      
+     
+      <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-3xl overflow-hidden">
+  
+      <div className="relative w-[300px] h-96 overflow-hidden rounded-lg group cursor-pointer mt-[22px] ml-[25px] hidden md:block">
+        {/* Bordure uniquement sur les côtés sans escalier */}
+        <div
+          className="absolute inset-0 border-4 border-gray-300"
+          style={{
+            clipPath:
+              "polygon(90% 0%, 100% 0%, 100% 90%, 90% 90%, 90% 100%, 0% 100%, 0% 10%, 10% 10%, 10% 0%)",
+          }}
+        ></div>
+
+        {/* Image avec effet spécial */}
+        <img
+          src="../src/assets/images/persone.webp" // Remplace avec ton image
+          alt="Person standing"
+          className="w-full h-full object-cover"
+          style={{
+            clipPath:
+              "polygon(0% 10%, 10% 10%, 10% 0%, 100% 0%, 100% 90%, 90% 90%, 90% 100%, 0% 100%)",
+          }}
+        />
+
+        {/* Overlay noir qui s'affiche en hover */}
+        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 items-center"></div>
+
+        {/* Logo en haut à gauche */}
+        <img
+          src="/src/assets/images/logo.png" // Remplace avec ton logo
+          alt="Logo"
+          className="absolute top-2 w-16 sm:w-20 md:w-26 lg:w-[150px] left-[20px]"
+        />
+
+        {/* Texte en bas à gauche avec flèche */}
+        <div className="absolute bottom-5 left-5 text-white flex items-center space-x-2">
+          <span className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold">"La meilleure solution pour racourssir vos liens"</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-10 h-6 text-white"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </div>
+      
+    </div>
+        {/* <div className="w-1/2 relative hidden md:block">
           <img
             src="./src/assets/images/Link.webp"
             alt="Login"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-purple-600 opacity-50"></div>
-        </div>
+        </div> */}
         <div className="w-full md:w-1/2 p-8">
           <h2 className="text-3xl font-semibold text-gray-700 text-center mt-[20px]">
             Connexion
           </h2>
-          <form className="mt-6" onSubmit={handleSubmit}>
+          <form className="mt-6 ml-[25px]" onSubmit={handleSubmit}>
             <div className="w-full">
               <label className="block text-gray-700 mb-1">Email</label>
               <div className="relative flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-purple-600">
@@ -103,28 +150,28 @@ const Connexion = () => {
             {/* Options supplémentaires */}
             <div className="mt-4 flex justify-between items-center text-sm">
               {/* Se rappeler de moi */}
-              <label className="flex items-center">
+              <label className="flex items-center ">
                 <input
                   type="checkbox"
                   className="mr-2 rounded border-gray-300 focus:ring-purple-600"
                 />
-                <span className="text-gray-600">Se rappeler de moi</span>
+                <span className="text-gray-800 text-[15px]">Se rappeler de moi</span>
               </label>
 
               {/* Mot de passe oublié */}
-              <a href="#" className="text-purple-600 hover:underline">
+              <a href="#" className="text-purple-600 hover:underline text-[15px] ml-[3px]">
                 Mot de passe oublié ?
               </a>
             </div>
 
             {/* Lien vers l'inscription */}
             <div className="mt-4 text-center text-sm">
-              <span className="text-gray-600">
+              <span className="text-gray-600 text-[15px]">
                 Vous n'avez pas de compte ?{" "}
               </span>
               <a
                 href="#"
-                className="text-purple-600 font-semibold hover:underline"
+                className="text-purple-600 font-semibold hover:underline text-[15px] ml-[15px]"
                 onClick={() => navigate("/Inscription")}
               >
                 S'inscrire

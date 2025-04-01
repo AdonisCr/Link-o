@@ -3,6 +3,7 @@ import Home from "./pages/Home.jsx";
 import Inscription from "./pages/Auth/Inscription.jsx";
 import Connexion from "./pages/Auth/Connexion.jsx";
 import Dashboard from "./pages/Dashbord.jsx";
+
 const App = () => {
   return (
     <Router>
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/Inscription" element={<Inscription />} />
         <Route path="/Connexion" element={<Connexion />} />
         <Route path="/dashboard" element={<Dashboard />} />
+      
 
       </Routes>
     </Router>
