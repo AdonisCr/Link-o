@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { shortenUrl } from "../api";
+import { shortenUrl } from "../api/api";
 
 function Short() {
   const [longUrl, setLongUrl] = useState("");
