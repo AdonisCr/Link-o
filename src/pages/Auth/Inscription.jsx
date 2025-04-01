@@ -36,7 +36,7 @@ const Inscription = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50 " style={{ fontFamily: "Winky Sans, sans-serif" }}>
             <img src="../src/assets/logo.png" alt="" className="w-24 sm:w-28 md:w-32 lg:w-40 absolute top-0 left-0 hidden lg:block" />
             <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-3xl overflow-hidden">
             <div className="relative w-[300px] h-96 overflow-hidden rounded-lg group cursor-pointer mt-[22px] ml-[25px] hidden md:block">

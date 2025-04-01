@@ -38,7 +38,7 @@ function Short() {
   };
 
   return (
-    <div className="w-[80%] md:w-[60%] mx-auto flex flex-col gap-5 items-center text-center">
+    <div className="w-[80%] md:w-[60%] mx-auto flex flex-col gap-5 items-center text-center" style={{ fontFamily: "Winky Sans, sans-serif" }}>
       <p className="text-Whites font-medium">
         Le raccourcisseur d'URL le plus simple que vous attendiez
       </p>

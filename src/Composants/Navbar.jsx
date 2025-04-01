@@ -20,7 +20,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full bg-Blacks py-2 text-white px-4 flex items-center justify-between shadow-lg border-l-2 border-violet-200 rounded-bl-lg">
+    <div className="w-full bg-Blacks py-2 text-white px-4 flex items-center justify-between shadow-lg border-l-2 border-violet-200 rounded-bl-lg" style={{ fontFamily: "Winky Sans, sans-serif" }}>
       {/* Barre de recherche */}
       <div className="flex bg-white px-3 py-2 rounded-md items-center gap-2 shadow-md">
         <img src="/src/assets/images/Search.svg" alt="Rechercher" className="w-5 h-5" />

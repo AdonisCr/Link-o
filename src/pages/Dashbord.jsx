@@ -35,7 +35,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex bg-violet-200">
+    <div className="flex bg-violet-200" style={{ fontFamily: "Winky Sans, sans-serif" }}>
       <SideBar
         activeTab={activeTab}
         onTabChange={setActiveTab}

@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className=" w-full  bg-Blacks">
+    <footer className=" w-full  bg-Blacks" style={{ fontFamily: "Winky Sans, sans-serif" }}>
       <div className="w-[90%]  mx-auto md:flex flex-wrap justify-center md:justify-between items-center gap-6  h-auto py-10 text-center   ">
         <div className="flex flex-col text-white space-y-2 space-x-8 ">
           <div className="space-y-4 text-lg flex flex-col items-center md:items-start ">

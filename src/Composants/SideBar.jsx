@@ -1,6 +1,6 @@
 const SideBar = ({ activeTab, onTabChange }) => {
   return (
-    <div className="w-auto md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 flex flex-col gap-5">
+    <div className="w-auto md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 flex flex-col gap-5" style={{ fontFamily: "Winky Sans, sans-serif" }}>
       <div className="md:hidden flex justify-start pt-4">
         <button className="text-white focus:outline-none">
           <svg

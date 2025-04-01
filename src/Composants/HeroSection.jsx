@@ -3,7 +3,7 @@ import Short from "./Short";
 
 function HeroSection() {
   return (
-    <section className="w-full bg-Indigolight  relative mt-16 md:mt-[70px] lg:mt-20  py-10 flex flex-col gap-10 ">
+    <section className="w-full bg-Indigolight  relative mt-16 md:mt-[70px] lg:mt-20  py-10 flex flex-col gap-10 " style={{ fontFamily: "Winky Sans, sans-serif" }}>
       <div className="w-full max-w-[90%] md:max-w-[80%] mx-auto text-center gap-4 md:gap-6 flex flex-col px-4">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-Whites leading-tight">
           La Solution Pour Vos Liens <br />

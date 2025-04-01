@@ -34,7 +34,7 @@ const Connexion = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50" style={{ fontFamily: "Winky Sans, sans-serif" }}>
       
      
       <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-3xl overflow-hidden">
