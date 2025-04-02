@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { shortenUrl } from "../api/api";
+import { shortenUrl } from "../api/url";
 
 function Short() {
   const [longUrl, setLongUrl] = useState("");
@@ -8,12 +8,14 @@ function Short() {
   const [error, setError] = useState("");
 
   const handleShortenUrl = async () => {
-    if (!longUrl) {
-      alert("Veuillez entrer une URL valide.");
+    if (!longUrl.trim()) {
+      setError("Veuillez entrer une URL valide.");
       return;
     }
+
     setIsLoading(true);
     setError("");
+
     try {
       const shortened = await shortenUrl(longUrl);
       setShortUrl(shortened);
@@ -25,15 +27,9 @@ function Short() {
   };
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText(shortUrl);
-    alert("Lien copié !");
-  };
-
-  const handleInputChange = (e) => {
-    const newLongUrl = e.target.value;
-    setLongUrl(newLongUrl);
-    if (!newLongUrl) {
-      setShortUrl("");
+    if (shortUrl) {
+      navigator.clipboard.writeText(shortUrl);
+      alert("Lien copié !");
     }
   };
 
@@ -42,13 +38,14 @@ function Short() {
       <p className="text-Whites font-medium">
         Le raccourcisseur d'URL le plus simple que vous attendiez
       </p>
+
       <div className="w-full flex justify-between bg-Whites rounded-lg">
         <input
           type="text"
           className="w-3/4 py-3 px-2 rounded-lg outline-none"
           placeholder="Coller votre lien ici..."
           value={longUrl}
-          onChange={handleInputChange}
+          onChange={(e) => setLongUrl(e.target.value)}
         />
 
         <button
@@ -59,22 +56,26 @@ function Short() {
           {isLoading ? "Chargement..." : "Réduire URL"}
         </button>
       </div>
+
       {error && <p className="text-red-500">{error}</p>}
-      <div className="w-full flex justify-between gap-5">
-        <input
-          type="text"
-          className="w-1/2 py-2 px-2 rounded-lg outline-none"
-          value={shortUrl}
-          readOnly
-        />
-        <button
-          className="w-1/2 px-2 md:px-6 text-Whites py-1 md:py-2 border-4 border-linac rounded-lg text-[8px] md:text-xs lg:text-lg"
-          onClick={handleCopyUrl}
-          disabled={!shortUrl}
-        >
-          Copier URL
-        </button>
-      </div>
+
+      {shortUrl && (
+        <div className="w-full flex justify-between gap-5">
+          <input
+            type="text"
+            className="w-3/4 py-2 px-2 rounded-lg outline-none"
+            value={shortUrl}
+            readOnly
+          />
+
+          <button
+            className="w-1/4 px-2 md:px-6 text-Whites py-1 md:py-2 border-4 border-linac rounded-lg text-[8px] md:text-xs lg:text-lg"
+            onClick={handleCopyUrl}
+          >
+            Copier URL
+          </button>
+        </div>
+      )}
     </div>
   );
 }

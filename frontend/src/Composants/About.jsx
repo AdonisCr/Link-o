@@ -47,12 +47,16 @@ const About = () => {
   ];
 
   return (
-    <section className="h-full w-full">
+    <section
+      className="h-full w-full"
+      style={{ fontFamily: "Winky Sans, sans-serif" }}
+    >
       <div className="w-[90%] mx-auto bg-white flex flex-col">
         <div className="flex flex-col justify-center items-center p-8">
           <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer hover:scale-95 transition-all duration-300">
             Qu'est-ce que Link-o ?
           </h2>
+
           <p className="text-center p-8 text-lg">
             <span className="font-bold">Link-o</span> est un raccourcisseur
             d’URL puissant et polyvalent conçu pour offrir une expérience fluide
@@ -80,7 +84,9 @@ const About = () => {
                   alt={blog.name}
                 />
 
-                <h1 className="text-black font-semibold text-xl">{blog.name}</h1>
+                <h1 className="text-black font-semibold text-xl">
+                  {blog.name}
+                </h1>
                 <h1 className="text-black text-lg">{blog.descr2}</h1>
               </div>
             </div>

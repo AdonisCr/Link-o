@@ -13,6 +13,7 @@ const Connexion = () => {
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("rememberedEmail");
+
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);

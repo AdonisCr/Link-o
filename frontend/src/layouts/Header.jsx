@@ -30,7 +30,10 @@ function Header() {
     //   </div>
     // </header>
 
-    <header className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50">
+    <header
+      className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50"
+      style={{ fontFamily: "Winky Sans, sans-serif" }}
+    >
       <div className="w-[90%] mx-auto flex items-center justify-between">
         {/* Logo */}
         <img
@@ -42,8 +45,17 @@ function Header() {
         {/* Conteneur Mobile : Menu + Boutons alignés */}
         <div className="flex items-center gap-4 lg:hidden  sm:text-xs">
           {/* Boutons Sign in & Sign up (Visibles même sur mobile) */}
-          <button className="text-linac "  onClick={() => navigate("/Connexion")}>Se Connecter</button>
-          <button className="bg-linac text-Whites px-2 py-1 rounded-lg" onClick={() => navigate("/Inscription")}>  
+          <button
+            className="text-linac "
+            onClick={() => navigate("/Connexion")}
+          >
+            Se Connecter
+          </button>
+
+          <button
+            className="bg-linac text-Whites px-2 py-1 rounded-lg"
+            onClick={() => navigate("/Inscription")}
+          >
             S'inscrire
           </button>
 
@@ -63,15 +75,19 @@ function Header() {
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               Acceuil
             </li>
+
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               A Propos
             </li>
+
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              Fonctionnalités  
+              Fonctionnalités
               {/* </li>
+
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               Our Works
             </li>
+
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               Pricing */}
             </li>
@@ -80,13 +96,19 @@ function Header() {
 
         {/* Boutons visibles en mode desktop */}
         <div className="hidden lg:flex gap-6 items-center">
-          <button className="text-linac "  onClick={() => navigate("/Connexion")}>Se Connecter</button>
           <button
-      className="bg-linac text-Whites px-4 py-2 rounded-lg"
-      onClick={() => navigate("/Inscription")}
-    >
-      S'inscrire
-    </button>
+            className="text-linac "
+            onClick={() => navigate("/Connexion")}
+          >
+            Se Connecter
+          </button>
+
+          <button
+            className="bg-linac text-Whites px-4 py-2 rounded-lg"
+            onClick={() => navigate("/Inscription")}
+          >
+            S'inscrire
+          </button>
         </div>
       </div>
     </header>

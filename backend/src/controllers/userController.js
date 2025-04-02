@@ -6,7 +6,7 @@ exports.getUrlByUser = async (req, res) => {
       createdAt: -1,
     });
 
-    res.json(urls);
+    res.json({ urls });
   } catch (err) {
     res.status(500).json({ message: "Erreur serveur" });
   }
