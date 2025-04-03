@@ -10,6 +10,7 @@ const NavBar = () => {
   const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
+  const [generateQRCode, setGenerateQRCode] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -34,7 +35,13 @@ const NavBar = () => {
         return;
       }
 
-      const generatedUrl = await shortenUrl(longUrl, customAlias, user._id);
+      const generatedUrl = await shortenUrl(
+        longUrl,
+        customAlias,
+        user._id,
+        generateQRCode
+      );
+
       setShortUrl(generatedUrl);
     } catch (err) {
       setError(err.message);
@@ -96,6 +103,30 @@ const NavBar = () => {
                 value={customAlias}
                 onChange={(e) => setCustomAlias(e.target.value)}
               />
+
+              <div className="w-full flex flex-col items-start text-start gap-2">
+                <div className="w-full flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-gray-700">
+                    QR Code
+                  </h3>
+
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={generateQRCode}
+                      onChange={() => setGenerateQRCode(!generateQRCode)}
+                    />
+
+                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                  </label>
+                </div>
+
+                <p className="text-sm font-medium mb-3 text-gray-700">
+                  Générez un code QR à partager partout où les gens peuvent le
+                  voir.
+                </p>
+              </div>
 
               <button
                 className="w-full bg-violet-600 text-white px-3 py-2 rounded-md hover:bg-violet-700 transition duration-300"

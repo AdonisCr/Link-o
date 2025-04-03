@@ -8,6 +8,14 @@ const UrlSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   lastAccessed: { type: Date, default: null },
   expiresAt: { type: Date, default: null },
+
+  // Ajout des métadonnées de la page
+  title: { type: String, default: "Titre non disponible" },
+  description: { type: String, default: "Aucune description" },
+  image: { type: String, default: "" },
+
+  // QR Code en base64
+  qrCode: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("Url", UrlSchema);
