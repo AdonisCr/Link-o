@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { shortenUrl } from "../api/url";
 import { getUser, logout } from "../api/user";
+import { FaUserAlt } from "react-icons/fa";
 
 const NavBar = () => {
   const [showCreateMenu, setShowCreateMenu] = useState(false);
@@ -49,19 +50,19 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full bg-Blacks py-2 text-white px-4 flex items-center justify-between shadow-lg border-l-2 border-violet-200 rounded-bl-lg">
+    <div className="w-full bg-Blacks py-2 text-white px-4 flex items-center justify-between shadow-lg">
       {/* Barre de recherche */}
-      <div className="flex bg-white px-3 py-2 rounded-md items-center gap-2 shadow-md">
+      <div className="flex bg-white px-2 lg:px-3 py-1.5 lg:py-2 rounded-md items-center gap-2 shadow-md">
         <img
           src="/src/assets/images/Search.svg"
           alt="Rechercher"
-          className="w-5 h-5"
+          className="w-4 lg:w-5 h-4 lg:h-5 object-cover"
         />
 
         <input
           type="text"
           name="search"
-          className="rounded-md outline-none text-gray-500 text-sm w-48 transition-all duration-300 focus:w-64"
+          className="rounded-md outline-none text-gray-500 text-sm lg:w-48 transition-all duration-300 lg:focus:w-64"
           placeholder="Recherche un lien"
         />
       </div>
@@ -71,14 +72,15 @@ const NavBar = () => {
         {/* Bouton Créer */}
         <div className="relative">
           <button
-            className="flex items-center bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-md px-3 py-2 shadow-md transition duration-300"
+            className="flex items-center bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-md px-2 lg:px-3 py-2 lg:py-2 shadow-md transition duration-300"
             onClick={() => setShowCreateMenu(!showCreateMenu)}
           >
             <img
               src="/src/assets/images/Plus.svg"
               alt="Créer"
-              className="w-5 h-5"
+              className="w-4 lg:w-5 h-4 lg:h-5 object-cover"
             />
+
             <span className="hidden sm:inline ml-2">Créer un lien</span>
           </button>
 
@@ -141,6 +143,7 @@ const NavBar = () => {
                   <span className="text-sm text-gray-700 truncate">
                     {shortUrl}
                   </span>
+
                   <button
                     className="text-violet-500 text-sm font-medium hover:text-violet-700"
                     onClick={() => navigator.clipboard.writeText(shortUrl)}
@@ -156,12 +159,10 @@ const NavBar = () => {
         {/* Profil */}
         <div className="relative">
           <div
-            className="flex items-center gap-2 cursor-pointer bg-gray-800 px-3 py-2 rounded-md hover:bg-gray-700 transition duration-300"
+            className="flex items-center gap-2 text-lg cursor-pointer transition border-2 border-white rounded-full p-2 duration-300"
             onClick={() => setShowProfileMenu(!showProfileMenu)}
           >
-            <span className="font-semibold hidden sm:block text-white">
-              {user?.username || "Username"}
-            </span>
+            <FaUserAlt />
           </div>
 
           {showProfileMenu && (

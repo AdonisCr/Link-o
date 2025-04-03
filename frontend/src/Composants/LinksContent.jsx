@@ -12,6 +12,7 @@ import ShareModal from "./ShareModal";
 import { getUrlByUser, deleteUrl } from "../api/url";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../api/user";
+import bad_mood_icon from "../assets/images/mood-sad.svg";
 
 const LinksContent = () => {
   const [links, setLinks] = useState([]);
@@ -36,15 +37,19 @@ const LinksContent = () => {
     const fetchUserAndLinks = async () => {
       try {
         const user = await getUser();
+
         setUserId(user._id);
-        await fetchLinks(user._id);
+
+        const data = await getUrlByUser(user._id);
+
+        setLinks(data);
       } catch (error) {
         console.error(error.message);
       }
     };
 
     fetchUserAndLinks();
-  }, []);
+  }, [userId, links]);
 
   // Rafraîchir les liens si l'utilisateur change
   useEffect(() => {
@@ -66,7 +71,8 @@ const LinksContent = () => {
     if (window.confirm("Voulez-vous supprimer ce lien ?")) {
       try {
         await deleteUrl(id);
-        await fetchLinks(userId);
+
+        setLinks((prevLinks) => prevLinks.filter((link) => link._id !== id));
       } catch (error) {
         console.error(error.message);
       }
@@ -98,7 +104,7 @@ const LinksContent = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full ">
+    <div className="bg-white shadow-md rounded-lg p-6 w-full w-full">
       <h2 className="text-lg font-semibold mb-4">Mes Liens</h2>
 
       {/* Barre de recherche */}
@@ -118,8 +124,8 @@ const LinksContent = () => {
           >
             <div className="flex items-start gap-4">
               <img
-                src={link.image}
-                alt={link.title}
+                src={link.image || bad_mood_icon}
+                alt={link.title || "Image indisponible"}
                 className="p-0.5 border border-black/40 shadow w-8 lg:w-12 h-8 lg:h-12 rounded-full object-cover"
               />
 
@@ -129,7 +135,7 @@ const LinksContent = () => {
                 </p>
 
                 <a
-                  href={link.originalUrl}
+                  href={link.shortUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 text-sm font-semibold hover:underline"

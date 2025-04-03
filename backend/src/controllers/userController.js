@@ -2,8 +2,6 @@ const Url = require("../models/Url");
 
 exports.getUrlByUser = async (req, res) => {
   try {
-    console.log("UserID reçu :", req.params.userId);
-
     const urls = await Url.find({ userId: req.params.userId }).sort({
       createdAt: -1,
     });

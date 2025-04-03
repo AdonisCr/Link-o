@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className="w-full min-h-screen flex items-start    ">
+    <div className="w-full min-h-screen flex items-start ">
       <SideBar />
 
       <div className="flex flex-col w-full">

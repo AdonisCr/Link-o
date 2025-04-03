@@ -9,6 +9,19 @@ const UrlSchema = new mongoose.Schema({
   lastAccessed: { type: Date, default: null },
   expiresAt: { type: Date, default: null },
 
+  // Historique des positions
+  positions: [
+    {
+      ip: String,
+      country: String,
+      region: String,
+      city: String,
+      lat: Number,
+      lon: Number,
+      date: { type: Date, default: Date.now },
+    },
+  ],
+
   // Ajout des métadonnées de la page
   title: { type: String, default: "Titre non disponible" },
   description: { type: String, default: "Aucune description" },
