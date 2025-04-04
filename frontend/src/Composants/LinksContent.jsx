@@ -19,6 +19,7 @@ const LinksContent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLink, setSelectedLink] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [openedMenuId, setOpenedMenuId] = useState(null);
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
@@ -104,7 +105,7 @@ const LinksContent = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full w-full">
+    <div className="bg-white shadow-md rounded-lg p-3 lg:p-6 w-full">
       <h2 className="text-lg font-semibold mb-4">Mes Liens</h2>
 
       {/* Barre de recherche */}
@@ -116,21 +117,88 @@ const LinksContent = () => {
       />
 
       {/* Liste des liens */}
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {filteredLinks.map((link) => (
           <div
             key={link._id}
-            className="flex w-full justify-between items-start p-4 border rounded-lg shadow-sm"
+            className="flex flex-col p-4 border rounded-lg shadow-sm gap-3 overflow-hidden"
           >
-            <div className="flex items-start gap-4">
-              <img
-                src={link.image || bad_mood_icon}
-                alt={link.title || "Image indisponible"}
-                className="p-0.5 border border-black/40 shadow w-8 lg:w-12 h-8 lg:h-12 rounded-full object-cover"
-              />
+            {/* Section haute avec image et titre */}
+            <div className="flex flex-col gap-4">
+              <div className="w-full flex items-center justify-between">
+                <img
+                  src={link.image || bad_mood_icon}
+                  alt={link.title || "Image indisponible"}
+                  className="border border-black/40 shadow w-10 h-10 rounded-full object-cover"
+                />
 
-              <div className="flex items-start flex-col gap-2">
-                <p className="font-bold text-Blacks break-words hover:underline cursor-pointer text-lg truncate max-w-md">
+                <div className="relative">
+                  <button
+                    className="text-black text-lg font-bold lg:text-xl "
+                    onClick={() =>
+                      setOpenedMenuId(
+                        openedMenuId === link._id ? null : link._id
+                      )
+                    }
+                  >
+                    <FaEllipsisH />
+                  </button>
+
+                  {openedMenuId === link._id && (
+                    <div className="absolute right-0 mt-2 w-44 bg-white shadow-xl rounded-lg z-50 border border-gray-100 animate-fade-in">
+                      {/* Petite flèche */}
+                      <div className="absolute top-[-6px] right-4 w-3 h-3 bg-white rotate-45 shadow-sm border-l border-t border-gray-100"></div>
+
+                      <button
+                        onClick={() => {
+                          copyToClipboard(link.shortUrl);
+                          setOpenedMenuId(null);
+                        }}
+                        className="flex items-center gap-2 w-full px-4 lg:py-3 py-2 text-sm text-gray-700 hover:bg-violet-50 transition-colors"
+                      >
+                        <FaCopy className="text-violet-600" />
+                        Copier
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          handleShare(link);
+                          setOpenedMenuId(null);
+                        }}
+                        className="flex items-center gap-2 w-full px-4 lg:py-3 py-2 text-sm text-gray-700 hover:bg-violet-50 transition-colors"
+                      >
+                        <FaShareAlt className="text-violet-600" />
+                        Partager
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          handleViewDetails(link);
+                          setOpenedMenuId(null);
+                        }}
+                        className="flex items-center gap-2 w-full px-4 lg:py-3 py-2  text-sm text-gray-700 hover:bg-violet-50 transition-colors"
+                      >
+                        <FaEye className="text-violet-600" />
+                        Détails
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          handleDelete(link._id);
+                          setOpenedMenuId(null);
+                        }}
+                        className="flex items-center gap-2 w-full px-4  lg:py-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      >
+                        <FaTrash className="text-red-600" />
+                        Supprimer
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <p className="font-bold text-black truncate text-base hover:underline cursor-pointer">
                   {link.title}
                 </p>
 
@@ -138,7 +206,7 @@ const LinksContent = () => {
                   href={link.shortUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 text-sm font-semibold hover:underline"
+                  className="text-blue-600 mt-2 text-sm font-semibold hover:underline break-words max-w-full block"
                 >
                   {link.shortUrl}
                 </a>
@@ -147,76 +215,33 @@ const LinksContent = () => {
                   href={link.originalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 text-sm font-semibold hover:underline"
+                  className="text-gray-500 mt-1 text-sm hover:underline break-words max-w-full block"
                 >
                   {link.originalUrl}
                 </a>
-
-                <div className="flex items-center gap-3 mt-4">
-                  <p className="flex items-center gap-1 text-sm text-black">
-                    <MdAdsClick />
-                    <span>{link.clicks} clics</span>
-                  </p>
-
-                  <p className="flex items-center gap-1 text-sm text-black">
-                    <FaCalendar />
-                    <span>{formatDate(link.createdAt)}</span>
-                  </p>
-                </div>
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex gap-2">
-              {/* Bouton pour petit écran */}
-              <div className="lg:hidden relative">
-                <button
-                  className="p-2 rounded bg-violet-700 hover:bg-violet-600 text-white"
-                  onClick={() =>
-                    setSelectedLink(selectedLink === link ? null : link)
-                  }
-                >
-                  <FaEllipsisH />
-                </button>
+            {/* Infos supplémentaires */}
+            <div className="flex mt-2 flex-wrap items-center gap-3 text-sm text-gray-600">
+              <p className="flex items-center gap-1">
+                <MdAdsClick className="text-lg" />
+                <span>{link.clicks} clics</span>
+              </p>
 
-                {selectedLink === link && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md z-50">
-                    <button
-                      onClick={() => copyToClipboard(link.shortUrl)}
-                      className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Copier
-                    </button>
+              <p className="flex items-center gap-1">
+                <FaCalendar className="text-lg" />
+                <span>{formatDate(link.createdAt)}</span>
+              </p>
+            </div>
 
-                    <button
-                      onClick={() => handleShare(link)}
-                      className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Partager
-                    </button>
-
-                    <button
-                      onClick={() => handleViewDetails(link)}
-                      className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Détails
-                    </button>
-
-                    <button
-                      onClick={() => handleDelete(link._id)}
-                      className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Supprimer
-                    </button>
-                  </div>
-                )}
-              </div>
-
+            {/* Boutons d'actions */}
+            <div className="flex justify-between w-full">
               {/* Boutons pour grand écran */}
-              <div className="hidden lg:flex gap-2">
+              {/* <div className="hidden lg:flex gap-2">
                 <button
                   onClick={() => copyToClipboard(link.shortUrl)}
-                  className="bg-violet-700 hover:bg-violet-600 text-white px-2 py-1 rounded"
+                  className="bg-violet-700 hover:bg-violet-600 text-white p-2 rounded"
                 >
                   <FaCopy />
                 </button>
@@ -236,12 +261,12 @@ const LinksContent = () => {
                 </button>
 
                 <button
-                  className="p-2 rounded bg-violet-700 hover:bg-violet-600 text-white"
+                  className="p-2 rounded bg-red-600 hover:bg-red-500 text-white"
                   onClick={() => handleDelete(link._id)}
                 >
                   <FaTrash />
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

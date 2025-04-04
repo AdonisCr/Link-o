@@ -39,6 +39,7 @@ const Connexion = () => {
     if (validateForm()) {
       try {
         const { data } = await login({ email, password });
+
         localStorage.setItem("token", data.token);
 
         if (rememberMe) {
@@ -105,6 +106,7 @@ const Connexion = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">{errors.email}</p>
               )}
@@ -112,6 +114,7 @@ const Connexion = () => {
 
             <div className="mt-4 w-full">
               <label className="block text-gray-700 mb-1">Mot de passe</label>
+
               <div className="relative flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-purple-600">
                 <img
                   src="../src/assets/images/lock-open-regular-24.png"

@@ -3,32 +3,13 @@ import { Link } from "react-router-dom";
 const SideBar = ({ activeTab, onTabChange }) => {
   return (
     <div
-      className="w-auto sticky top-0 md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 flex flex-col gap-5"
+      className="w-auto hidden sticky top-0 md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 lg:flex flex-col gap-5"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
-      <div className="md:hidden flex justify-start pt-4">
-        <button className="text-white focus:outline-none">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-      </div>
-
       <img
         src="/src/assets/images/logo.png"
         alt="Logo"
-        className="hidden md:block w-24 sm:w-28 md:w-32 lg:w-40 relative -left-7"
+        className="hidden md:block w-24 mt-2 sm:w-28 md:w-32 lg:w-40 relative -left-7"
       />
 
       <div className="flex flex-col gap-5 items-center md:items-start justify-center w-full">
