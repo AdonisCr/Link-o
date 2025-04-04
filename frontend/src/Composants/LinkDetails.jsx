@@ -36,7 +36,7 @@ const LinkDetails = () => {
       <div className="flex flex-col lg:flex-row justify-between w-full p-4 border rounded-lg shadow-sm gap-6">
         {/* Partie gauche : infos */}
         <div className="flex flex-col gap-4 flex-1 min-w-0">
-          <p className="font-bold  text-black break-words hover:underline cursor-pointer text-xl lg:text-2xl truncate">
+          <p className="font-bold  text-black break-words max-w-2xl hover:underline cursor-pointer text-xl lg:text-2xl truncate">
             {linkDetails.title}
           </p>
 
@@ -80,6 +80,7 @@ const LinkDetails = () => {
                 {linkDetails.lastAccessed && (
                   <p className="flex items-center gap-1">
                     <FaCalendar />
+
                     <span>
                       Dernier accès : {formatDate(linkDetails.lastAccessed)}
                     </span>

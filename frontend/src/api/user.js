@@ -31,6 +31,25 @@ export const getUser = async () => {
   }
 };
 
+export const updateUser = async (formData) => {
+  const token = localStorage.getItem("token");
+  const { data } = await API.put("/user/update", formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return data;
+};
+
+export const deleteUser = async () => {
+  const token = localStorage.getItem("token");
+  const { data } = await API.delete("/user/delete", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data;
+};
+
 // Déconnexion
 export const logout = () => {
   localStorage.removeItem("token");
