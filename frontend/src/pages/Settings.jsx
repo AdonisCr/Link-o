@@ -73,8 +73,8 @@ const Settings = () => {
           <input
             type="text"
             name="username"
-            value={user?.username}
-            onChange={(e) => setUser(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Nom complet"
             className="w-full border px-3 py-2 rounded-md"
           />
@@ -82,7 +82,7 @@ const Settings = () => {
           <input
             type="email"
             name="email"
-            value={user?.email}
+            value={email}
             onChange={(e) => setUser(e.target.value)}
             placeholder="Adresse email"
             className="w-full border px-3 py-2 rounded-md"
