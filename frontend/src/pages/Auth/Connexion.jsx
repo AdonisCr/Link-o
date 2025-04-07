@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api/auth";
+import { useAuth } from "../../context/AuthContext";
 
 const Connexion = () => {
   const [email, setEmail] = useState("");
@@ -32,6 +33,8 @@ const Connexion = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const { login: loginContext } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError("");
@@ -39,14 +42,17 @@ const Connexion = () => {
     if (validateForm()) {
       try {
         const { data } = await login({ email, password });
-
-        localStorage.setItem("token", data.token);
+        console.log(data);
 
         if (rememberMe) {
           localStorage.setItem("rememberedEmail", email);
         } else {
           localStorage.removeItem("rememberedEmail");
         }
+
+        localStorage.setItem("token", data.token);
+
+        loginContext(data.token);
 
         navigate("/dashboard");
       } catch (err) {

@@ -9,32 +9,43 @@ import Settings from "./pages/Settings.jsx";
 import Domains from "./pages/Domains.jsx";
 import Support from "./pages/Support.jsx";
 import LinkDetails from "./Composants/LinkDetails.jsx";
+import PrivateRoute from "./Composants/PrivateRoute.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route path="/Inscription" element={<Inscription />} />
+          <Route path="/Inscription" element={<Inscription />} />
 
-        <Route path="/Connexion" element={<Connexion />} />
+          <Route path="/Connexion" element={<Connexion />} />
 
-        <Route path="dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardContent />} />
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<DashboardContent />} />
 
-          <Route path="links" element={<LinksContent />} />
+            <Route path="links" element={<LinksContent />} />
 
-          <Route path="links/:id" element={<LinkDetails />} />
+            <Route path="links/:id" element={<LinkDetails />} />
 
-          <Route path="domains" element={<Domains />} />
+            <Route path="domains" element={<Domains />} />
 
-          <Route path="support" element={<Support />} />
+            <Route path="support" element={<Support />} />
 
-          <Route path="settings" element={<Settings />} />
-        </Route>
-      </Routes>
-    </Router>
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 
