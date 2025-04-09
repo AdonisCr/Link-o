@@ -95,7 +95,9 @@ const SideBar = ({ activeTab, onTabChange }) => {
           <Link
             to="support"
             className={`flex items-center gap-4 hover:bg-Whites hover:text-Blacks cursor-pointer rounded-lg py-2 md:px-1 px-0 ${
-              activeTab === "settings" ? "bg-Whites text-Blacks" : ""
+              activeTab === "domains"
+              ? "bg-Whites text-Blacks"
+              : "text-Whites hover:bg-Whites hover:text-Blacks"
             }`}
           >
             <img src="/src/assets/images/Support.svg" alt="" />
@@ -105,7 +107,9 @@ const SideBar = ({ activeTab, onTabChange }) => {
           <Link
             to="settings"
             className={`flex items-center gap-4 hover:bg-Whites hover:text-Blacks cursor-pointer rounded-lg py-2 md:px-1 px-0 ${
-              activeTab === "settings" ? "bg-Whites text-Blacks" : ""
+              activeTab === "domains"
+                ? "bg-Whites text-Blacks"
+                : "text-Whites hover:bg-Whites hover:text-Blacks"
             }`}
             onClick={() => onTabChange("settings")}
           >

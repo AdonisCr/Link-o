@@ -51,8 +51,8 @@ const About = () => {
       className="h-full w-full"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
-      <div className="w-[90%] mx-auto bg-white flex flex-col">
-        <div className="flex flex-col justify-center items-center p-8">
+      <div id="about" className="w-[90%] mx-auto bg-white flex flex-col">
+        <div  className="flex flex-col justify-center items-center p-8">
           <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer hover:scale-95 transition-all duration-300">
             Qu'est-ce que Link-o ?
           </h2>
@@ -69,7 +69,7 @@ const About = () => {
       </div>
 
       {/* Section des icônes animées */}
-      <div className="bg-purple-50 py-10">
+      <div id="fonctions" className="bg-purple-50 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 grid-rows-2 justify-between w-[90%] items-start mx-auto gap-x-10 gap-y-5">
           {blogs.map((blog) => (
             <div
