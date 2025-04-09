@@ -20,14 +20,18 @@ exports.updateUser = async (req, res) => {
     const userId = req.user.id;
     const updates = req.body;
 
-    // Si une photo est uploadée
     if (req.file) {
-      updates.profilePicture = `/uploads/${req.file.filename}`;
+      updates.profilePicture = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      };
     }
 
     const updatedUser = await User.findByIdAndUpdate(userId, updates, {
       new: true,
     }).select("-password");
+
+    console.log(updatedUser);
 
     res.status(200).json(updatedUser);
   } catch (error) {

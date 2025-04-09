@@ -6,7 +6,7 @@ const DashboardContent = () => {
   const [user, setUser] = useState(null);
   const [links, setLinks] = useState([]);
   const [totalClicks, setTotalClicks] = useState(0);
-  const [searchTerm, setSearchTerm] = useState(""); // Ajout du filtre
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {

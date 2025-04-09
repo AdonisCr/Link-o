@@ -11,6 +11,7 @@ const Settings = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,6 +24,7 @@ const Settings = () => {
         console.error("Erreur utilisateur :", error);
       }
     };
+
     fetchUser();
   }, []);
 
@@ -37,6 +39,7 @@ const Settings = () => {
 
       const updated = await updateUser(formData);
       setUser(updated);
+      setPreviewImage(null);
       alert("Profil mis à jour !");
     } catch (err) {
       console.error(err);
@@ -57,6 +60,23 @@ const Settings = () => {
       console.error(err);
       alert("Échec de la suppression");
     }
+  };
+
+  const UserProfile = ({ user }) => {
+    const profilePictureData = user?.profilePicture?.data;
+    const contentType = user?.profilePicture?.contentType || "image/png";
+
+    const imageSrc = profilePictureData
+      ? `data:${contentType};base64,${profilePictureData}`
+      : "/default-avatar.png"; // image par défaut si pas de photo
+
+    return (
+      <img
+        src={imageSrc}
+        alt="Photo de profil"
+        className="w-20 h-20 rounded-full object-cover"
+      />
+    );
   };
 
   return (
@@ -83,7 +103,7 @@ const Settings = () => {
             type="email"
             name="email"
             value={email}
-            onChange={(e) => setUser(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Adresse email"
             className="w-full border px-3 py-2 rounded-md"
           />
@@ -91,14 +111,18 @@ const Settings = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => setProfilePicture(e.target.files[0])}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              setProfilePicture(file);
+              setPreviewImage(URL.createObjectURL(file));
+            }}
             className="w-full"
           />
 
-          {user?.profilePicture && (
+          {previewImage && (
             <img
-              src={`http://localhost:5000${user.profilePicture}`}
-              alt="Profil"
+              src={previewImage}
+              alt="Aperçu"
               className="w-20 h-20 object-cover rounded-full mt-2"
             />
           )}

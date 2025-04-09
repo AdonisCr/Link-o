@@ -1,13 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@theme {
+  --font-winky: "Winky Sans", sans-serif;
+}
+
 @keyframes swing {
-    50% { transform: rotate(0deg); }
-    50% { transform: rotate(10deg); } /* Inclinaison vers l'avant */
-    100% { transform: rotate(0deg); }
+  50% {
+    transform: rotate(0deg);
   }
-  
-  .animate-swing {
-    animation: swing 1.5s ease-in-out infinite;
+  50% {
+    transform: rotate(10deg);
+  } /* Inclinaison vers l'avant */
+  100% {
+    transform: rotate(0deg);
   }
-  
+}
+
+.animate-swing {
+  animation: swing 1.5s ease-in-out infinite;
+}
