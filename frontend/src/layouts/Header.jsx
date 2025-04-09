@@ -30,14 +30,10 @@ function Header() {
     //   </div>
     // </header>
 
-<<<<<<< HEAD:src/layouts/Header.jsx
-    <header className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50" style={{ fontFamily: "Winky Sans, sans-serif" }}>
-=======
     <header
       className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
->>>>>>> ec0d41eecf54b844c647df8ce3b1ab8a91db75ec:frontend/src/layouts/Header.jsx
       <div className="w-[90%] mx-auto flex items-center justify-between">
         {/* Logo */}
         <img
@@ -77,15 +73,15 @@ function Header() {
         >
           <ul className="flex flex-col lg:flex-row gap-6 lg:gap-10 text-Whites text-center lg:text-left p-5 lg:p-0">
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              Acceuil
+           <a href="#acceuil">   Acceuil</a>
             </li>
 
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              A Propos
+            <a href="#about">  A Propos</a>
             </li>
 
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              Fonctionnalités
+             <a href="#fonctions"> Fonctionnalités</a>
               {/* </li>
 
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">

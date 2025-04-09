@@ -2,33 +2,10 @@ import { Link } from "react-router-dom";
 
 const SideBar = ({ activeTab, onTabChange }) => {
   return (
-<<<<<<< HEAD:src/Composants/SideBar.jsx
-    <div className="w-auto md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 flex flex-col gap-5" style={{ fontFamily: "Winky Sans, sans-serif" }}>
-      <div className="md:hidden flex justify-start pt-4">
-        <button className="text-white focus:outline-none">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-      </div>
-
-=======
     <div
       className="w-auto hidden sticky top-0 md:w-48 lg:w-[18%] bg-Blacks text-white h-screen px-4 lg:flex flex-col gap-5"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
->>>>>>> ec0d41eecf54b844c647df8ce3b1ab8a91db75ec:frontend/src/Composants/SideBar.jsx
       <img
         src="/src/assets/images/logo.png"
         alt="Logo"
@@ -37,12 +14,8 @@ const SideBar = ({ activeTab, onTabChange }) => {
 
       <div className="flex flex-col gap-5 items-center md:items-start justify-center w-full">
         <ul className="text-white flex flex-col gap-2 font-semibold">
-<<<<<<< HEAD:src/Composants/SideBar.jsx
-          <li
-=======
           <Link
             to="/dashboard"
->>>>>>> ec0d41eecf54b844c647df8ce3b1ab8a91db75ec:frontend/src/Composants/SideBar.jsx
             className={`flex items-center gap-4 cursor-pointer rounded-lg py-2 md:pr-10 md:px-1 px-0 ${
               activeTab === "dashboard"
                 ? "bg-Whites text-Blacks"
@@ -122,7 +95,9 @@ const SideBar = ({ activeTab, onTabChange }) => {
           <Link
             to="support"
             className={`flex items-center gap-4 hover:bg-Whites hover:text-Blacks cursor-pointer rounded-lg py-2 md:px-1 px-0 ${
-              activeTab === "settings" ? "bg-Whites text-Blacks" : ""
+              activeTab === "domains"
+              ? "bg-Whites text-Blacks"
+              : "text-Whites hover:bg-Whites hover:text-Blacks"
             }`}
           >
             <img src="/src/assets/images/Support.svg" alt="" />
@@ -132,7 +107,9 @@ const SideBar = ({ activeTab, onTabChange }) => {
           <Link
             to="settings"
             className={`flex items-center gap-4 hover:bg-Whites hover:text-Blacks cursor-pointer rounded-lg py-2 md:px-1 px-0 ${
-              activeTab === "settings" ? "bg-Whites text-Blacks" : ""
+              activeTab === "domains"
+                ? "bg-Whites text-Blacks"
+                : "text-Whites hover:bg-Whites hover:text-Blacks"
             }`}
             onClick={() => onTabChange("settings")}
           >
