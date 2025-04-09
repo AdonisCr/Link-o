@@ -47,14 +47,10 @@ const About = () => {
   ];
 
   return (
-<<<<<<< HEAD:src/Composants/About.jsx
-    <section className="h-full w-full" style={{ fontFamily: "Winky Sans, sans-serif" }}>
-=======
     <section
       className="h-full w-full"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
->>>>>>> ec0d41eecf54b844c647df8ce3b1ab8a91db75ec:frontend/src/Composants/About.jsx
       <div className="w-[90%] mx-auto bg-white flex flex-col">
         <div className="flex flex-col justify-center items-center p-8">
           <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer hover:scale-95 transition-all duration-300">

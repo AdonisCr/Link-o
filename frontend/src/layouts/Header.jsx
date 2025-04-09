@@ -30,14 +30,10 @@ function Header() {
     //   </div>
     // </header>
 
-<<<<<<< HEAD:src/layouts/Header.jsx
-    <header className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50" style={{ fontFamily: "Winky Sans, sans-serif" }}>
-=======
     <header
       className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
->>>>>>> ec0d41eecf54b844c647df8ce3b1ab8a91db75ec:frontend/src/layouts/Header.jsx
       <div className="w-[90%] mx-auto flex items-center justify-between">
         {/* Logo */}
         <img
