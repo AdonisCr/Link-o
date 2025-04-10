@@ -4,7 +4,7 @@ import SideBar from "../Composants/SideBar";
 import NavBar from "../Composants/Navbar";
 
 import DashboardContent from "../Composants/DashbordContent";
-import LinksContent from "../Composants/LinksContent";
+import LinksContent from "../omposants/LinksContent";
 // import AnalyticsContent from "./AnalyticsContent";
 // import DomainsContent from "./DomainsContent";
 

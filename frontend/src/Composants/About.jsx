@@ -48,6 +48,7 @@ const About = () => {
 
   return (
     <section
+      id="about"
       className="h-full w-full"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
@@ -69,7 +70,7 @@ const About = () => {
       </div>
 
       {/* Section des icônes animées */}
-      <div className="bg-purple-50 py-10">
+      <div id="features" className="bg-purple-50 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 grid-rows-2 justify-between w-[90%] items-start mx-auto gap-x-10 gap-y-5">
           {blogs.map((blog) => (
             <div

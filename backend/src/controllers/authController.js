@@ -1,6 +1,13 @@
+const crypto = require("crypto");
+const { Resend } = require("resend");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const transporter = require("../utils/mailer");
+
+require("dotenv").config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const generateToken = (userId) => {
   try {
@@ -99,5 +106,86 @@ exports.getMe = async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user)
+      return res.status(404).json({ message: "Aucun utilisateur trouvé." });
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const resetTokenExpiry = Date.now() + 3600000; // 1h
+
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = resetTokenExpiry;
+    await user.save();
+
+    const resetLink = `${process.env.BASE_FRONTEND_URL}/reset-password/${resetToken}`;
+
+    // Envoi du mail via nodemailer
+    await transporter.sendMail({
+      from: "noreply@geryguedegbe.com",
+      to: email,
+      subject: "🔒 Réinitialisation de votre mot de passe",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+          <h2 style="color: #6c63ff;">Réinitialisation de votre mot de passe</h2>
+          <p>Bonjour <strong>${user.username}</strong>,</p>
+          <p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le bouton ci-dessous :</p>
+    
+          <a href="${resetLink}" target="_blank" 
+             style="display: inline-block; padding: 12px 20px; margin: 20px 0; background-color: #6c63ff; color: white; text-decoration: none; border-radius: 5px;">
+            Réinitialiser mon mot de passe
+          </a>
+    
+          <p>Ou copiez/collez ce lien dans votre navigateur :</p>
+          <p style="word-break: break-all;">${resetLink}</p>
+    
+          <p style="color: #999;">Ce lien est valable pendant 1 heure.</p>
+    
+          <hr style="margin: 30px 0;" />
+          <p style="font-size: 12px; color: #aaa;">
+            Si vous n'êtes pas à l'origine de cette demande, ignorez cet email.
+          </p>
+        </div>
+      `,
+    });
+
+    res
+      .status(200)
+      .json({ message: "Lien de réinitialisation envoyé par email." });
+  } catch (err) {
+    console.error("Erreur reset email :", err);
+    res.status(500).json({ message: "Erreur serveur." });
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user)
+      return res.status(400).json({ message: "Lien invalide ou expiré." });
+
+    const hashed = await bcrypt.hash(newPassword, 10);
+    user.password = hashed;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.status(200).json({ message: "Mot de passe mis à jour avec succès." });
+  } catch (err) {
+    res.status(500).json({ message: "Erreur lors de la mise à jour." });
   }
 };

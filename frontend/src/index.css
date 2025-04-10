@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --font-winky: "Winky Sans", sans-serif;
 }
