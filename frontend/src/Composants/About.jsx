@@ -1,5 +1,5 @@
 import React from "react";
-
+import dd from "../assets/images/242_1x_shots_so.png";
 const About = () => {
   const blogs = [
     {
@@ -51,8 +51,11 @@ const About = () => {
       className="h-full w-full"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
-      <div id="about" className="w-[90%] mx-auto bg-white flex flex-col">
-        <div  className="flex flex-col justify-center items-center p-8">
+      <div id="about" className="w-[90%] mx-auto bg-white flex flex-col md:flex-row ">
+        <div className="w-1/2">
+          <img src={dd} alt="" />
+        </div>
+        <div className="flex flex-col justify-center items-center p-8 w-1/2">
           <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer hover:scale-95 transition-all duration-300">
             Qu'est-ce que Link-o ?
           </h2>

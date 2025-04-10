@@ -35,14 +35,10 @@ const Dashboard = () => {
   };
 
   return (
-<<<<<<< HEAD:src/pages/Dashbord.jsx
-    <div className="flex bg-violet-200" style={{ fontFamily: "Winky Sans, sans-serif" }}>
-=======
     <div
       className="flex bg-violet-200"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
->>>>>>> ec0d41eecf54b844c647df8ce3b1ab8a91db75ec:frontend/src/pages/Dashbord.jsx
       <SideBar
         activeTab={activeTab}
         onTabChange={setActiveTab}
