@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteUser, getUser, logout } from "../api/user";
 import { updateUser } from "../api/user";
+import { changePassword } from "../api/auth";
 
 const Settings = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +13,15 @@ const Settings = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [passwordErrors, setPasswordErrors] = useState({
+    current: "",
+    new: "",
+    confirm: "",
+  });
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -47,9 +57,48 @@ const Settings = () => {
     }
   };
 
-  const handleChangePassword = () => {
-    // Appel backend ici pour changer le mot de passe
-    console.log({ currentPassword, newPassword, confirmPassword });
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      setPasswordErrors((prev) => ({
+        ...prev,
+        confirm: "Les mots de passe ne correspondent pas.",
+      }));
+      return;
+    }
+
+    try {
+      await changePassword({
+        currentPassword,
+        newPassword,
+      });
+
+      alert("Mot de passe changé avec succès !");
+
+      setCurrentPassword("");
+
+      setNewPassword("");
+
+      setConfirmPassword("");
+
+      setPasswordErrors({ current: "", new: "", confirm: "" });
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.message ||
+        "Erreur lors du changement de mot de passe.";
+
+      // Vérifie si l'erreur concerne un mot de passe incorrect
+      if (
+        error.response?.data?.message?.toLowerCase().includes("mot de passe") ||
+        error.response?.data?.message?.toLowerCase().includes("incorrect")
+      ) {
+        setPasswordErrors((prev) => ({
+          ...prev,
+          current: errorMsg,
+        }));
+      } else {
+        alert(errorMsg);
+      }
+    }
   };
 
   const handleDeleteAccount = async () => {
@@ -143,32 +192,111 @@ const Settings = () => {
         </h3>
 
         <div className="flex flex-col gap-4">
-          <input
-            type="password"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            placeholder="Mot de passe actuel"
-            className="w-full border px-3 py-2 rounded-md"
-          />
+          {/* Mot de passe actuel */}
+          <div className="relative">
+            <input
+              type={showCurrentPassword ? "text" : "password"}
+              value={currentPassword}
+              onChange={(e) => {
+                setCurrentPassword(e.target.value);
+                setPasswordErrors((prev) => ({ ...prev, current: "" }));
+              }}
+              placeholder="Mot de passe actuel"
+              className="w-full border px-3 py-2 rounded-md pr-10"
+            />
 
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Nouveau mot de passe"
-            className="w-full border px-3 py-2 rounded-md"
-          />
+            <button
+              type="button"
+              onClick={() => setShowCurrentPassword((prev) => !prev)}
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-sm text-gray-600"
+            >
+              {showCurrentPassword ? "Masquer" : "Afficher"}
+            </button>
 
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirmer le nouveau mot de passe"
-            className="w-full border px-3 py-2 rounded-md"
-          />
+            {passwordErrors.current && (
+              <p className="text-sm text-red-500 mt-1">
+                {passwordErrors.current}
+              </p>
+            )}
+          </div>
+
+          {/* Nouveau mot de passe */}
+          <div className="relative">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              value={newPassword}
+              onChange={(e) => {
+                setNewPassword(e.target.value);
+                setPasswordErrors((prev) => ({ ...prev, new: "" }));
+              }}
+              placeholder="Nouveau mot de passe"
+              className="w-full border px-3 py-2 rounded-md pr-10"
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowNewPassword((prev) => !prev)}
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-sm text-gray-600"
+            >
+              {showNewPassword ? "Masquer" : "Afficher"}
+            </button>
+
+            {passwordErrors.new && (
+              <p className="text-sm text-red-500 mt-1">{passwordErrors.new}</p>
+            )}
+          </div>
+
+          {/* Confirmation */}
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                setPasswordErrors((prev) => ({ ...prev, confirm: "" }));
+              }}
+              placeholder="Confirmer le nouveau mot de passe"
+              className="w-full border px-3 py-2 rounded-md pr-10"
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-sm text-gray-600"
+            >
+              {showConfirmPassword ? "Masquer" : "Afficher"}
+            </button>
+
+            {passwordErrors.confirm && (
+              <p className="text-sm text-red-500 mt-1">
+                {passwordErrors.confirm}
+              </p>
+            )}
+          </div>
 
           <button
-            onClick={handleChangePassword}
+            onClick={() => {
+              const errors = {
+                current: currentPassword
+                  ? ""
+                  : "Veuillez entrer le mot de passe actuel.",
+                new:
+                  newPassword.length >= 6
+                    ? ""
+                    : "Le mot de passe doit contenir au moins 6 caractères.",
+                confirm:
+                  confirmPassword === newPassword
+                    ? ""
+                    : "Les mots de passe ne correspondent pas.",
+              };
+
+              setPasswordErrors(errors);
+
+              const hasErrors = Object.values(errors).some((e) => e);
+              if (!hasErrors) {
+                handleChangePassword();
+              }
+            }}
             className="bg-violet-600 hover:bg-violet-700 text-white py-2 px-4 rounded-md w-fit"
           >
             Enregistrer le mot de passe

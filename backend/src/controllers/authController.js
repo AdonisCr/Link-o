@@ -189,3 +189,29 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: "Erreur lors de la mise à jour." });
   }
 };
+
+exports.changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await User.findById(req.user.id);
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ message: "Mot de passe actuel incorrect." });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    await user.save();
+
+    res.status(200).json({ message: "Mot de passe mis à jour avec succès." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

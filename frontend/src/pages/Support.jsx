@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   FaPaperPlane,
   FaCheckCircle,
@@ -6,42 +7,58 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 
+const API = axios.create({ baseURL: "http://localhost:5000/api/tickets" });
+
+// Ajouter le token à chaque requête
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 const Support = () => {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
-  const [tickets, setTickets] = useState([
-    {
-      id: 1,
-      subject: "Lien ne fonctionne pas",
-      status: "Ouvert",
-      date: "03 avril 2025",
-    },
-    {
-      id: 2,
-      subject: "Erreur lors de la création",
-      status: "Résolu",
-      date: "01 avril 2025",
-    },
-  ]);
+  const [tickets, setTickets] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!subject || !message) return;
 
-    // Simule ajout d'un ticket (à remplacer par un appel backend)
-    setTickets((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
+    try {
+      const response = await API.post("/create-ticket", {
         subject,
-        status: "Ouvert",
-        date: new Date().toLocaleDateString("fr-FR"),
-      },
-    ]);
+        message,
+      });
 
-    setSubject("");
-    setMessage("");
+      // Ajoute le nouveau ticket à la liste
+      setTickets((prev) => [response.data.ticket, ...prev]);
+
+      setSubject("");
+      setMessage("");
+    } catch (error) {
+      console.error(
+        "Erreur lors de l'envoi du ticket :",
+        error.response?.data || error.message
+      );
+    }
   };
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const response = await API.get("/tickets");
+        setTickets(response.data);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des tickets :",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchTickets();
+  }, []);
 
   return (
     <div className="w-full px-4 py-6 flex flex-col gap-8">
@@ -94,11 +111,12 @@ const Support = () => {
           <ul className="flex flex-col gap-3">
             {tickets.map((ticket) => (
               <li
-                key={ticket.id}
+                key={ticket._id}
                 className="flex flex-col sm:flex-row sm:items-center sm:justify-between border px-4 py-3 rounded-md bg-gray-50"
               >
                 <div>
                   <p className="font-medium text-black">{ticket.subject}</p>
+
                   <p className="text-sm text-gray-600">Créé le {ticket.date}</p>
                 </div>
 
@@ -108,11 +126,13 @@ const Support = () => {
                       <FaCheckCircle /> {ticket.status}
                     </span>
                   )}
+
                   {ticket.status === "Ouvert" && (
                     <span className="text-yellow-600 flex items-center gap-1">
                       <FaClock /> {ticket.status}
                     </span>
                   )}
+
                   {ticket.status === "En attente" && (
                     <span className="text-red-600 flex items-center gap-1">
                       <FaExclamationCircle /> {ticket.status}
