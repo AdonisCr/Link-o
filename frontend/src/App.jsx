@@ -13,6 +13,9 @@ import PrivateRoute from "./Composants/PrivateRoute.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 import ResetPassword from "./pages/Auth/ResetPassword.jsx";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 
 const App = () => {
   return (
