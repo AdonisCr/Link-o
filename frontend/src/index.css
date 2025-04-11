@@ -11,7 +11,9 @@ html {
 @theme {
   --font-winky: "Winky Sans", sans-serif;
 }
-
+html{
+  scroll-behavior: smooth;
+}
 @keyframes swing {
   50% {
     transform: rotate(0deg);

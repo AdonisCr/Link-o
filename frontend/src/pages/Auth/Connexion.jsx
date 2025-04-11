@@ -212,15 +212,14 @@ const Connexion = () => {
             >
               <p className="font-semibold text-lg">Se connecter</p>
             </button>
-
             <div className="mt-4 text-center text-sm">
-              <span className="text-gray-600">
+              <span className="text-gray-600 text-[15px]">
                 Vous n'avez pas de compte ?{" "}
               </span>
 
               <a
                 href="#"
-                className="text-purple-600 font-semibold hover:underline"
+                className="text-purple-600 font-semibold hover:underline text-[15px] ml-[15px]"
                 onClick={() => navigate("/Inscription")}
               >
                 S'inscrire

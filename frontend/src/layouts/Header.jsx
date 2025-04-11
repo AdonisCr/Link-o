@@ -73,16 +73,25 @@ function Header() {
         >
           <ul className="flex flex-col lg:flex-row gap-6 lg:gap-10 text-Whites text-center lg:text-left p-5 lg:p-0">
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
-              Acceuil
+           <a href="#acceuil">   Acceuil</a>
             </li>
 
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
+<<<<<<< HEAD
               <a href="#about">A Propos</a>
             </li>
 
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               <a href="#features">Fonctionnalités</a>
             </li>
+=======
+            <a href="#about">  A Propos</a>
+            </li>
+
+            <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
+             <a href="#fonctions"> Fonctionnalités</a>
+              {/* </li>
+>>>>>>> ca9ea01da86fddf332e988a31789a88a288b6247
 
             {/* <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               Our Works
