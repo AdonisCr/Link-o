@@ -31,7 +31,7 @@ function Header() {
     // </header>
 
     <header
-      className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50"
+      className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white  top-0 left-0 z-50"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
       <div className="w-[90%] mx-auto flex items-center justify-between">
