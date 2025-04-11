@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../api/auth";
+import { useAuth } from "../../context/AuthContext";
 
 const Connexion = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const Connexion = () => {
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("rememberedEmail");
+
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
@@ -31,6 +33,8 @@ const Connexion = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const { login: loginContext } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError("");
@@ -38,13 +42,17 @@ const Connexion = () => {
     if (validateForm()) {
       try {
         const { data } = await login({ email, password });
-        localStorage.setItem("token", data.token);
+        console.log(data);
 
         if (rememberMe) {
           localStorage.setItem("rememberedEmail", email);
         } else {
           localStorage.removeItem("rememberedEmail");
         }
+
+        localStorage.setItem("token", data.token);
+
+        loginContext(data.token);
 
         navigate("/dashboard");
       } catch (err) {
@@ -59,20 +67,64 @@ const Connexion = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      <img
-        src="../src/assets/images/logo.png"
-        alt=""
-        className="w-24 sm:w-28 md:w-32 lg:w-40 absolute top-0 left-0 hidden lg:block"
-      />
-
       <div className="flex bg-white rounded-lg shadow-lg w-3/4 max-w-4xl overflow-hidden">
         <div className="w-1/2 relative hidden md:block">
-          <img
-            src="./src/assets/images/Link.webp"
-            alt="Login"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-purple-600 opacity-50"></div>
+          <div className="relative w-[300px] h-96 overflow-hidden rounded-lg group cursor-pointer mt-[26px] ml-[50px] hidden md:block">
+            {/* Bordure uniquement sur les côtés sans escalier */}
+            <div
+              className="absolute inset-0 border-10 border-gray-300"
+              style={{
+                clipPath:
+                  "polygon(90% 0%, 100% 0%, 100% 90%, 90% 90%, 90% 100%, 0% 100%, 0% 10%, 10% 10%, 10% 0%)",
+              }}
+            ></div>
+
+            {/* Image avec effet spécial */}
+            <img
+              src="../src/assets/images/persone.webp" // Remplace avec ton image
+              alt="Person standing"
+              className="w-full h-full object-cover"
+              style={{
+                clipPath:
+                  "polygon(0% 10%, 10% 10%, 10% 0%, 100% 0%, 100% 90%, 90% 90%, 90% 100%, 0% 100%)",
+              }}
+            />
+
+            {/* Overlay noir qui s'affiche en hover */}
+            <div
+              className="absolute inset-0 bg-black opacity-50  transition-opacity duration-300 items-center"
+              style={{
+                clipPath:
+                  "polygon(0% 10%, 10% 10%, 10% 0%, 100% 0%, 100% 90%, 90% 90%, 90% 100%, 0% 100%)",
+              }}
+            ></div>
+
+            {/* Logo en haut à gauche */}
+            <img
+              src="/src/assets/images/logo.png" // Remplace avec ton logo
+              alt="Logo"
+              className="absolute top-2 w-16 sm:w-20 md:w-26 lg:w-[120px] right-0"
+            />
+
+            {/* Texte en bas à gauche avec flèche */}
+            <div className="absolute bottom-5 left-5 text-white flex items-start space-x-2">
+              <span className="text-sm sm:text-base md:text-lg lg:text-lg font-semibold  leading-none">
+                "La meilleure solution pour racourssir vos liens"
+              </span>
+              {/* <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-10 h-6 text-white"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg> */}
+            </div>
+          </div>
         </div>
 
         <div className="w-full md:w-1/2 p-8">
@@ -104,6 +156,7 @@ const Connexion = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">{errors.email}</p>
               )}
@@ -111,6 +164,7 @@ const Connexion = () => {
 
             <div className="mt-4 w-full">
               <label className="block text-gray-700 mb-1">Mot de passe</label>
+
               <div className="relative flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-purple-600">
                 <img
                   src="../src/assets/images/lock-open-regular-24.png"
@@ -144,9 +198,12 @@ const Connexion = () => {
                 <span className="text-gray-600">Se rappeler de moi</span>
               </label>
 
-              <a href="#" className="text-purple-600 hover:underline">
+              <Link
+                to="/forgot-password"
+                className="text-purple-600 hover:underline"
+              >
                 Mot de passe oublié ?
-              </a>
+              </Link>
             </div>
 
             <button
@@ -155,15 +212,14 @@ const Connexion = () => {
             >
               <p className="font-semibold text-lg">Se connecter</p>
             </button>
-
             <div className="mt-4 text-center text-sm">
-              <span className="text-gray-600">
+              <span className="text-gray-600 text-[15px]">
                 Vous n'avez pas de compte ?{" "}
               </span>
 
               <a
                 href="#"
-                className="text-purple-600 font-semibold hover:underline"
+                className="text-purple-600 font-semibold hover:underline text-[15px] ml-[15px]"
                 onClick={() => navigate("/Inscription")}
               >
                 S'inscrire

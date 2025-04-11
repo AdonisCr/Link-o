@@ -4,6 +4,7 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: { fontWinky: ["Winky Sans", "sans-serif"] },
       colors: {
         Blacks: "#2C2E33",
         Whites: "#F8F9FF",

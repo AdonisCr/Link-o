@@ -1,11 +1,13 @@
 const express = require("express");
+const qrcode = require("qrcode");
 const validUrl = require("valid-url");
 const shortid = require("shortid");
 const Url = require("../models/Url");
+const { getMetaData } = require("../utils/scraper");
 
 // Raccourcir une URL
 exports.shortenUrl = async (req, res) => {
-  const { originalUrl, userId, expiresInDays } = req.body;
+  const { originalUrl, userId, expiresInDays, generateQrCode } = req.body;
 
   if (!validUrl.isUri(originalUrl)) {
     return res.status(400).json({ message: "URL invalide" });
@@ -23,7 +25,17 @@ exports.shortenUrl = async (req, res) => {
       "host"
     )}/api/url/${shortCode}`;
 
-    // Définir la date d'expiration si nécessaire
+    // 🔥 Récupération des métadonnées du lien
+    const { title, description, image } = await getMetaData(originalUrl);
+
+    // Générer le QR code uniquement si `generateQrCode` est activé
+    let qrCodeDataUrl = null;
+
+    if (generateQrCode) {
+      qrCodeDataUrl = await qrcode.toDataURL(fullShortUrl);
+    }
+
+    // Définir la date d  'expiration si nécessaire
     const expiresAt = expiresInDays
       ? new Date(Date.now() + expiresInDays * 24 * 60 * 60 * 1000)
       : null;
@@ -33,6 +45,10 @@ exports.shortenUrl = async (req, res) => {
       shortUrl: fullShortUrl,
       userId: userId || null,
       expiresAt,
+      title,
+      description,
+      image,
+      qrCode: qrCodeDataUrl,
     });
 
     await url.save();
@@ -45,20 +61,26 @@ exports.shortenUrl = async (req, res) => {
       userId: url.userId,
       createdAt: url.createdAt,
       expiresAt: url.expiresAt,
+      title,
+      description,
+      image,
+      qrCode: qrCodeDataUrl,
     });
   } catch (err) {
+    console.error("Erreur serveur :", err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
-// Rediriger vers l'URL d'origine
+// Rediriger vers l'URL d'origine et incrémenter le nombre de clics
 exports.shortUrl = async (req, res) => {
   try {
-    const shortCode = `${req.protocol}://${req.get("host")}/api/url/${
-      req.params.shortUrl
-    }`;
+    const { shortUrl } = req.params;
 
-    const url = await Url.findOne({ shortUrl: shortCode });
+    // Trouver l'URL dans la base de données avec seulement le code court
+    const url = await Url.findOne({
+      shortUrl: `${req.protocol}://${req.get("host")}/api/url/${shortUrl}`,
+    });
 
     if (!url) {
       return res.status(404).json({ message: "URL non trouvée" });
@@ -70,12 +92,15 @@ exports.shortUrl = async (req, res) => {
     }
 
     // Incrémenter les clics et mettre à jour la date du dernier accès
-    url.clicks++;
+
+    url.clicks += 1;
+
     url.lastAccessed = new Date();
     await url.save();
 
     res.redirect(url.originalUrl);
   } catch (err) {
+    console.error("Erreur serveur :", err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
@@ -121,7 +146,43 @@ exports.getStats = async (req, res) => {
       createdAt: url.createdAt,
       lastAccessed: url.lastAccessed,
       expiresAt: url.expiresAt,
+      title: url.title,
+      description: url.description,
+      image: url.image,
     });
+  } catch (err) {
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
+// Récupérer le QR code
+exports.getQrCode = async (req, res) => {
+  try {
+    const url = await Url.findById(req.params.id);
+
+    if (!url) {
+      return res.status(404).json({ message: "URL non trouvée" });
+    }
+
+    res.json({ qrCode: url.qrCode });
+  } catch (err) {
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
+// Supprimer le QR code
+exports.deleteQrCode = async (req, res) => {
+  try {
+    const url = await Url.findById(req.params.id);
+
+    if (!url) {
+      return res.status(404).json({ message: "URL non trouvée" });
+    }
+
+    url.qrCode = "";
+    await url.save();
+
+    res.json({ message: "QR Code supprimé avec succès" });
   } catch (err) {
     res.status(500).json({ message: "Erreur serveur" });
   }
