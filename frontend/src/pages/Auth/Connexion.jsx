@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../api/auth";
 import { useAuth } from "../../context/AuthContext";
 
@@ -198,9 +198,12 @@ const Connexion = () => {
                 <span className="text-gray-600">Se rappeler de moi</span>
               </label>
 
-              <a href="#" className="text-purple-600 hover:underline">
+              <Link
+                to="/forgot-password"
+                className="text-purple-600 hover:underline"
+              >
                 Mot de passe oublié ?
-              </a>
+              </Link>
             </div>
 
             <button

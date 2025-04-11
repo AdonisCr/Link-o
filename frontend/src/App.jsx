@@ -11,6 +11,8 @@ import Support from "./pages/Support.jsx";
 import LinkDetails from "./Composants/LinkDetails.jsx";
 import PrivateRoute from "./Composants/PrivateRoute.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
+import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 
 const App = () => {
   return (
@@ -43,6 +45,9 @@ const App = () => {
 
             <Route path="settings" element={<Settings />} />
           </Route>
+
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
 
   { timestamps: true }

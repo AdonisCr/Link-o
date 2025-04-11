@@ -53,7 +53,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full bg-Blacks py-2 text-white px-3 flex items-center justify-between shadow-lg">
+    <div className="w-full sticky top-0 bg-Blacks py-2 text-white px-3 flex items-center justify-between shadow-lg">
       <div className="flex items-center gap-2">
         {/* Mobile Menu **/}
         <button
