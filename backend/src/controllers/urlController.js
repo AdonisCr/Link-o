@@ -187,3 +187,17 @@ exports.deleteQrCode = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
+exports.getAllUserQrCodes = async (req, res) => {
+  try {
+    const urls = await Url.find({
+      userId: req.params.userId,
+      qrCode: { $ne: "" },
+    }).sort({ createdAt: -1 });
+
+    res.json(urls);
+  } catch (err) {
+    console.error("Erreur récupération QR codes :", err);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};

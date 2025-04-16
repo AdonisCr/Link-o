@@ -68,3 +68,15 @@ export const deleteQrCode = async (id) => {
     throw new Error("Impossible de supprimer le QR code.");
   }
 };
+
+// Recuperer tout les QR code
+export const getAllUserQrCodes = async (userId) => {
+  try {
+    const response = await API.get(`/user/${userId}/qrcodes`);
+
+    return response.data;
+  } catch (err) {
+    console.error("Erreur récupération QR Codes :", err);
+    throw new Error("Impossible de récupérer le QR Codes.");
+  }
+};

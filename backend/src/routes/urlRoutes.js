@@ -8,6 +8,7 @@ const {
   getStats,
   getQrCode,
   deleteQrCode,
+  getAllUserQrCodes,
 } = require("../controllers/urlController");
 const { getUrlByUser } = require("../controllers/userController");
 
@@ -23,5 +24,8 @@ router.get("/:id/qrcode", getQrCode);
 
 // Supprimer un QR code
 router.delete("/:id/qrcode", deleteQrCode);
+
+// Recuperer tout les QR code
+router.get("/user/:userId/qrcodes", getAllUserQrCodes);
 
 module.exports = router;
