@@ -1,5 +1,5 @@
 import React from "react";
-
+import dd from "../assets/images/242_1x_shots_so.png";
 const About = () => {
   const blogs = [
     {
@@ -52,13 +52,19 @@ const About = () => {
       className="h-full w-full"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
-      <div id="about" className="w-[90%] mx-auto bg-white flex flex-col">
-        <div className="flex flex-col justify-center items-center p-8">
+      <div
+        id="about"
+        className="w-[90%] mx-auto bg-white flex flex-col items-center  md:flex-row "
+      >
+        <div className=" md:w-1/2 w-[100%] ">
+          <img src={dd} alt="" className="w-full" />
+        </div>
+        <div className="flex flex-col justify-center items-center p-8 md:w-1/2 w-[100%]">
           <h2 className="font-bold text-3xl text-[#2C2E33] cursor-pointer hover:scale-95 transition-all duration-300">
             Qu'est-ce que Link-o ?
           </h2>
 
-          <p className="text-center p-8 text-lg">
+          <p className="text-center md:p-8 text-lg">
             <span className="font-bold">Link-o</span> est un raccourcisseur
             d’URL puissant et polyvalent conçu pour offrir une expérience fluide
             et intuitive. Que vous soyez un particulier souhaitant partager des

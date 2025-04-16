@@ -31,7 +31,7 @@ function Header() {
     // </header>
 
     <header
-      className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white fixed top-0 left-0 z-50"
+      className="w-full bg-Blacks py-4 font-semibold text-sm md:text-base text-white  top-0 left-0 z-50"
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
       <div className="w-[90%] mx-auto flex items-center justify-between">
@@ -83,6 +83,7 @@ function Header() {
             <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               <a href="#fonctions"> Fonctionnalités</a>
             </li>
+            {/* 
 
             {/* <li className="relative cursor-pointer font-semibold  after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full  after:h-[3px] after:bg-linac after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500">
               Our Works
