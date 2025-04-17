@@ -22,23 +22,25 @@ const DashboardContent = () => {
   }, []);
 
   useEffect(() => {
-    if (!user || !user._id) return;
+    const fetchLinks = async () => {
+      if (!user || !user._id) return;
 
-    const fetchUserUrls = async () => {
+      const userId = user._id;
+
       try {
-        const fetchedUrls = await getUrlByUser(user._id);
-        setLinks(fetchedUrls);
-        const total = fetchedUrls.reduce(
-          (acc, link) => acc + (link.clicks || 0),
-          0
-        );
+        const urls = await getUrlByUser(userId);
+
+        setLinks(urls);
+
+        const total = urls.reduce((acc, link) => acc + (link.clicks || 0), 0);
+
         setTotalClicks(total);
       } catch (error) {
-        console.error("Erreur liens :", error.message);
+        console.error("Erreur lors du chargement des URLs :", error);
       }
     };
 
-    fetchUserUrls();
+    fetchLinks();
   }, [user]);
 
   // Fonction de filtrage des liens

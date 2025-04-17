@@ -1,28 +1,14 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api" });
-
-// Ajouter automatiquement le token aux requêtes
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
+const API = axios.create({
+  baseURL: "http://localhost:5000/api",
+  withCredentials: true,
 });
 
 // Récupérer les informations de l'utilisateur connecté
 export const getUser = async () => {
   try {
-    const token = localStorage.getItem("token");
-
-    if (!token) throw new Error("Aucun token trouvé");
-
-    const { data } = await API.get("/auth/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const { data } = await API.get("/auth/me");
 
     return data;
   } catch (error) {
@@ -32,26 +18,25 @@ export const getUser = async () => {
 };
 
 export const updateUser = async (formData) => {
-  const token = localStorage.getItem("token");
-  const { data } = await API.put("/user/update", formData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return data;
+  try {
+    const { data } = await API.put("/user/update", formData);
+    return data;
+  } catch (error) {
+    console.error(
+      "Erreur lors de la mise à jour des données de l'utilisateur :",
+      error
+    );
+    throw new Error("Impossible de mettre à jour les données de l'utilisateur");
+  }
 };
 
 export const deleteUser = async () => {
-  const token = localStorage.getItem("token");
-  const { data } = await API.delete("/user/delete", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return data;
-};
+  try {
+    const { data } = await API.delete("/user/delete", {});
 
-// Déconnexion
-export const logout = () => {
-  localStorage.removeItem("token");
-  window.location.href = "/Connexion";
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de la suppression du compte :", error);
+    throw new Error("Impossible de supprimer le compte");
+  }
 };

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdAdsClick, MdKeyboardArrowLeft } from "react-icons/md";
 import { FaCalendar } from "react-icons/fa";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -7,7 +7,8 @@ import bad_mood_icon from "../assets/images/mood-sad.svg";
 
 const LinkDetails = () => {
   const location = useLocation();
-  const linkDetails = location.state?.link;
+  const navigate = useNavigate();
+  const linkDetails = location.state?.link || location.state?.qrCode;
 
   if (!linkDetails) return <p>Aucun détail à afficher.</p>;
 
@@ -24,13 +25,13 @@ const LinkDetails = () => {
 
   return (
     <div className="w-full h-full flex flex-col items-start gap-6 p-3 lg:p-6">
-      <Link
-        to="/dashboard/links"
+      <button
+        onClick={() => navigate(-1)}
         className="text-black flex items-center gap-1 text-base hover:underline font-medium"
       >
         <MdKeyboardArrowLeft className="text-xl" />
-        Retour à la liste
-      </Link>
+        Retour
+      </button>
 
       {/* Section principale responsive */}
       <div className="flex flex-col lg:flex-row justify-between w-full p-4 border rounded-lg shadow-sm gap-6">

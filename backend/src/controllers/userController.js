@@ -5,12 +5,15 @@ const path = require("path");
 
 exports.getUrlByUser = async (req, res) => {
   try {
+    const userId = req.params.id;
+
     const urls = await Url.find({ userId: req.params.userId }).sort({
       createdAt: -1,
     });
 
     res.json({ urls });
   } catch (err) {
+    console.error("Erreur lors de la récupération des URLs :", err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };

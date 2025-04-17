@@ -7,13 +7,9 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/tickets" });
-
-// Ajouter le token à chaque requête
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
+const API = axios.create({
+  baseURL: "http://localhost:5000/api/tickets",
+  withCredentials: true,
 });
 
 const Support = () => {
@@ -47,7 +43,7 @@ const Support = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await API.get("/tickets");
+        const response = await API.get("/");
         setTickets(response.data);
       } catch (error) {
         console.error(
@@ -59,6 +55,16 @@ const Support = () => {
 
     fetchTickets();
   }, []);
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
     <div className="w-full px-4 py-6 flex flex-col gap-8">
@@ -117,7 +123,9 @@ const Support = () => {
                 <div>
                   <p className="font-medium text-black">{ticket.subject}</p>
 
-                  <p className="text-sm text-gray-600">Créé le {ticket.date}</p>
+                  <p className="text-sm text-gray-600">
+                    Créé le {formatDate(ticket.createdAt)}
+                  </p>
                 </div>
 
                 <div className="mt-2 sm:mt-0 flex items-center gap-2 text-sm">

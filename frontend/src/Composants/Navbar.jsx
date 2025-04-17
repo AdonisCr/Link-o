@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { shortenUrl } from "../api/url";
-import { getUser, logout } from "../api/user";
+import { getUser } from "../api/user";
 import { FaUserAlt } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
+import { useAuthNavigation } from "../hooks/useAuthNavigation";
 
 const NavBar = () => {
   const [showCreateMenu, setShowCreateMenu] = useState(false);
@@ -49,6 +50,14 @@ const NavBar = () => {
       setShortUrl(generatedUrl);
     } catch (err) {
       setError(err.message);
+    }
+  };
+
+  const { logout } = useAuthNavigation();
+
+  const handleLogout = async () => {
+    if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+      await logout();
     }
   };
 
@@ -211,7 +220,7 @@ const NavBar = () => {
               </div>
 
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
               >
                 Déconnexion

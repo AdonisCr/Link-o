@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { deleteUser, getUser, logout } from "../api/user";
+import { deleteUser, getUser } from "../api/user";
 import { updateUser } from "../api/user";
 import { changePassword } from "../api/auth";
+import { useAuthNavigation } from "../hooks/useAuthNavigation";
 
 const Settings = () => {
   const [username, setUsername] = useState("");
@@ -16,6 +17,8 @@ const Settings = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { logout } = useAuthNavigation();
 
   const [passwordErrors, setPasswordErrors] = useState({
     current: "",
@@ -129,7 +132,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl px-4 py-6 flex flex-col gap-8">
+    <div className="w-full max-w-3xl px-4 py-6 flex flex-col gap-8 ">
       <h2 className="text-2xl font-bold text-black">Paramètres du compte</h2>
 
       {/* Modifier les infos */}
@@ -177,6 +180,7 @@ const Settings = () => {
           )}
 
           <button
+            type="button"
             onClick={handleUpdateProfile}
             className="bg-violet-600 hover:bg-violet-700 text-white py-2 px-4 rounded-md w-fit"
           >
@@ -275,6 +279,7 @@ const Settings = () => {
           </div>
 
           <button
+            type="button"
             onClick={() => {
               const errors = {
                 current: currentPassword
@@ -317,6 +322,7 @@ const Settings = () => {
 
         {!confirmDelete ? (
           <button
+            type="button"
             onClick={() => setConfirmDelete(true)}
             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md w-fit"
           >
@@ -329,6 +335,7 @@ const Settings = () => {
             </p>
 
             <button
+              type="button"
               onClick={handleDeleteAccount}
               className="bg-red-700 hover:bg-red-800 text-white py-2 px-4 rounded-md w-fit"
             >
@@ -336,6 +343,7 @@ const Settings = () => {
             </button>
 
             <button
+              type="button"
               onClick={() => setConfirmDelete(false)}
               className="text-sm text-gray-600 underline w-fit"
             >

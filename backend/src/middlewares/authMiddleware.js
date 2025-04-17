@@ -1,20 +1,31 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
-const authMiddleware = (req, res, next) => {
-  const authHeader = req.header("Authorization");
+const authMiddleware = async (req, res, next) => {
+  const token = req.cookies.token;
 
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (!token)
-    return res.status(401).json({ message: "Accès refusé, token manquant" });
+  if (!token) {
+    return res.status(401).json({ message: "Authentification requise" });
+  }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
 
-    req.user = decoded;
+    if (!user) {
+      return res.status(401).json({ message: "Utilisateur introuvable" });
+    }
+
+    req.user = user;
 
     next();
   } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Session expirée",
+        code: "TOKEN_EXPIRED",
+      });
+    }
     res.status(401).json({ message: "Token invalide" });
   }
 };

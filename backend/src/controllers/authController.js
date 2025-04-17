@@ -12,11 +12,39 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const generateToken = (userId) => {
   try {
     return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "15m",
     });
   } catch (error) {
     console.error("Erreur lors de la génération du token :", error.message);
     throw new Error("Problème de génération de token");
+  }
+};
+
+const generateRefreshToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, {
+    expiresIn: "7d",
+  });
+};
+
+exports.verifyToken = async (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Token manquant" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    return res.status(401).json({ message: "Token invalide" });
   }
 };
 
@@ -83,10 +111,31 @@ exports.login = async (req, res) => {
     }
 
     const token = generateToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    // Stockage du refreshToken en base
+    await User.findByIdAndUpdate(user._id, { refreshToken });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 15 * 60 * 1000,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.status(200).json({
-      token,
-      message: "Utilisateur connecté avec succès!",
+      user: {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+      },
     });
   } catch (error) {
     console.error("Erreur de connexion :", error.message || error);
@@ -96,6 +145,22 @@ exports.login = async (req, res) => {
       message: "Erreur serveur. Réessayez plus tard.",
       error: error.message || "Erreur inconnue",
     });
+  }
+};
+
+// authController.js
+exports.logout = async (req, res) => {
+  try {
+    // Invalider le refreshToken en base
+    await User.findByIdAndUpdate(req.user.id, { refreshToken: null });
+
+    // Supprimer les cookies
+    res.clearCookie("token");
+    res.clearCookie("refreshToken");
+
+    res.status(200).json({ message: "Déconnexion réussie" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 

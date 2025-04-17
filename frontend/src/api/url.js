@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/url" });
+const API = axios.create({
+  baseURL: "http://localhost:5000/api/url",
+  withCredentials: true,
+});
 
 export const shortenUrl = async (
   originalUrl,
@@ -28,7 +31,6 @@ export const shortenUrl = async (
 export const getUrlByUser = async (userId) => {
   try {
     const response = await API.get(`/user/${userId}`);
-
     return response.data.urls || [];
   } catch (error) {
     console.error("Erreur lors de la récupération des URLs :", error);
@@ -66,5 +68,17 @@ export const deleteQrCode = async (id) => {
   } catch (error) {
     console.error("Erreur lors de la suppression du QR code :", error);
     throw new Error("Impossible de supprimer le QR code.");
+  }
+};
+
+// Recuperer tout les QR code
+export const getAllUserQrCodes = async (userId) => {
+  try {
+    const response = await API.get(`/user/${userId}/qrcodes`);
+
+    return response.data;
+  } catch (err) {
+    console.error("Erreur récupération QR Codes :", err);
+    throw new Error("Impossible de récupérer le QR Codes.");
   }
 };

@@ -8,6 +8,6 @@ const protect = require("../middlewares/authMiddleware");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post("/create-ticket", authMiddleware, createTicket);
-router.get("/tickets", authMiddleware, getUserTickets);
+router.get("/", authMiddleware, getUserTickets);
 
 module.exports = router;
