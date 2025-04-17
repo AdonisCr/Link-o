@@ -56,6 +56,16 @@ const Support = () => {
     fetchTickets();
   }, []);
 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   return (
     <div className="w-full px-4 py-6 flex flex-col gap-8">
       <h2 className="text-2xl font-bold text-black">Support</h2>
@@ -113,7 +123,9 @@ const Support = () => {
                 <div>
                   <p className="font-medium text-black">{ticket.subject}</p>
 
-                  <p className="text-sm text-gray-600">Créé le {ticket.date}</p>
+                  <p className="text-sm text-gray-600">
+                    Créé le {formatDate(ticket.createdAt)}
+                  </p>
                 </div>
 
                 <div className="mt-2 sm:mt-0 flex items-center gap-2 text-sm">

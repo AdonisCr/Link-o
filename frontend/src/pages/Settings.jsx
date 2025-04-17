@@ -132,7 +132,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl px-4 py-6 flex flex-col gap-8">
+    <div className="w-full max-w-3xl px-4 py-6 flex flex-col gap-8 ">
       <h2 className="text-2xl font-bold text-black">Paramètres du compte</h2>
 
       {/* Modifier les infos */}
