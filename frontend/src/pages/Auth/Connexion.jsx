@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../api/auth";
-import { useAuth } from "../../context/AuthContext";
+import { useAuthNavigation } from "../../hooks/useAuthNavigation";
 
 const Connexion = () => {
   const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ const Connexion = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const { login: loginContext } = useAuth();
+  const { login: loginContext } = useAuthNavigation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,8 +41,8 @@ const Connexion = () => {
 
     if (validateForm()) {
       try {
-        const { data } = await login({ email, password });
-        console.log(data);
+        const user = await login({ email, password });
+        console.log(user);
 
         if (rememberMe) {
           localStorage.setItem("rememberedEmail", email);
@@ -50,16 +50,17 @@ const Connexion = () => {
           localStorage.removeItem("rememberedEmail");
         }
 
-        localStorage.setItem("token", data.token);
-
-        loginContext(data.token);
+        loginContext(user);
 
         navigate("/dashboard");
       } catch (err) {
         if (err.response) {
           setServerError(err.response.data.message);
         } else {
-          setServerError("Une erreur est survenue. Réessayez plus tard.");
+          console.error(err);
+          setServerError(
+            err.message || "Une erreur est survenue. Réessayez plus tard."
+          );
         }
       }
     }

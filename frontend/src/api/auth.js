@@ -2,25 +2,68 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: "http://localhost:5000/api/auth" });
 
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+export const verifyToken = async () => {
+  const response = await API.get("/verify-token", {
+    withCredentials: true,
+  });
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  return response.data;
+};
 
-  return config;
-});
+export const login = async (formData) => {
+  const response = await API.post("/login", formData, {
+    withCredentials: true,
+  });
 
-export const login = (formData) => API.post("/login", formData);
+  console.log("📦 Réponse login:", response);
 
-export const register = (formData) => API.post("/register", formData);
+  return response.data;
+};
 
-export const forgotPassword = (email) =>
-  API.post("/forgot-password", { email });
+export const register = async (formData) => {
+  const response = await API.post("/register", formData, {
+    withCredentials: true,
+  });
 
-export const resetPassword = (token, newPassword) =>
-  API.post(`/reset-password/${token}`, { newPassword });
+  return response;
+};
 
-export const changePassword = (formData) =>
-  API.put("/change-password", formData);
+export const logout = async () => {
+  const response = await API.post("/logout", {
+    withCredentials: true,
+  });
+
+  return response.data;
+};
+
+export const forgotPassword = async (email) => {
+  const response = await API.post(
+    "/forgot-password",
+    { email },
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response;
+};
+
+export const resetPassword = async (token, newPassword) => {
+  const response = await API.post(
+    `/reset-password/${token}`,
+    { newPassword },
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response;
+};
+
+export const changePassword = async (formData) => {
+  const response = API.put("/change-password", formData, {
+    withCredentials: true,
+  });
+
+  return response;
+};

@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/url" });
+const API = axios.create({
+  baseURL: "http://localhost:5000/api/url",
+  withCredentials: true,
+});
 
 export const shortenUrl = async (
   originalUrl,
@@ -28,7 +31,6 @@ export const shortenUrl = async (
 export const getUrlByUser = async (userId) => {
   try {
     const response = await API.get(`/user/${userId}`);
-
     return response.data.urls || [];
   } catch (error) {
     console.error("Erreur lors de la récupération des URLs :", error);

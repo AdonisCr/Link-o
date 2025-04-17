@@ -11,6 +11,7 @@ const {
   getAllUserQrCodes,
 } = require("../controllers/urlController");
 const { getUrlByUser } = require("../controllers/userController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post("/shorten", shortenUrl);
 router.get("/:shortUrl", shortUrl);

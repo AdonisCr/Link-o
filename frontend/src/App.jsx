@@ -28,27 +28,16 @@ const App = () => {
 
           <Route path="/Connexion" element={<Connexion />} />
 
-          <Route
-            path="dashboard"
-            element={
-              <PrivateRoute>
-                <DashboardLayout />
-              </PrivateRoute>
-            }
-          >
-            <Route index element={<DashboardContent />} />
-
-            <Route path="links" element={<LinksContent />} />
-
-            <Route path="links/:id" element={<LinkDetails />} />
-
-            <Route path="qrcodes" element={<QrCodePage />} />
-
-            <Route path="domains" element={<Domains />} />
-
-            <Route path="support" element={<Support />} />
-
-            <Route path="settings" element={<Settings />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="dashboard" element={<DashboardLayout />}>
+              <Route index element={<DashboardContent />} />
+              <Route path="links" element={<LinksContent />} />
+              <Route path="links/:id" element={<LinkDetails />} />
+              <Route path="qrcodes" element={<QrCodePage />} />
+              <Route path="domains" element={<Domains />} />
+              <Route path="support" element={<Support />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
           </Route>
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
