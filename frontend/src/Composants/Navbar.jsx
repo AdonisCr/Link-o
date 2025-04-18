@@ -53,6 +53,13 @@ const NavBar = () => {
     }
   };
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => alert("Lien copié dans le presse-papiers !"))
+      .catch((err) => console.error("Erreur lors de la copie :", err));
+  };
+
   const { logout } = useAuthNavigation();
 
   const handleLogout = async () => {
@@ -192,7 +199,8 @@ const NavBar = () => {
 
                     <button
                       className="text-violet-500 text-sm font-medium hover:text-violet-700"
-                      onClick={() => navigator.clipboard.writeText(shortUrl)}
+                      // onClick={() => navigator.clipboard.writeText(shortUrl)}
+                      onClick={() => copyToClipboard(shortUrl)}
                     >
                       Copier
                     </button>

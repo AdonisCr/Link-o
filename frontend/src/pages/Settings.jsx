@@ -160,7 +160,7 @@ const Settings = () => {
             className="w-full border px-3 py-2 rounded-md"
           />
 
-          <input
+          {/* <input
             type="file"
             accept="image/*"
             onChange={(e) => {
@@ -169,7 +169,7 @@ const Settings = () => {
               setPreviewImage(URL.createObjectURL(file));
             }}
             className="w-full"
-          />
+          /> */}
 
           {previewImage && (
             <img
