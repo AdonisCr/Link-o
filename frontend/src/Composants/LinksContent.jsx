@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import {
   FaCopy,
   FaShareAlt,
@@ -10,7 +13,6 @@ import {
 import { MdAdsClick } from "react-icons/md";
 import ShareModal from "./ShareModal";
 import { getUrlByUser, deleteUrl } from "../api/url";
-import { useNavigate } from "react-router-dom";
 import { getUser } from "../api/user";
 import bad_mood_icon from "../assets/images/mood-sad.svg";
 
@@ -64,8 +66,10 @@ const LinksContent = () => {
   const copyToClipboard = (text) => {
     navigator.clipboard
       .writeText(text)
-      .then(() => alert("Lien copié dans le presse-papiers !"))
-      .catch((err) => console.error("Erreur lors de la copie :", err));
+      .then(() => toast.success("Lien copié dans le presse-papiers !"))
+      .catch(() =>
+        toast.error("Une erreur est survenue lors de la copie du lien.")
+      );
   };
 
   // Supprimer un lien et mettre à jour la liste
@@ -73,10 +77,12 @@ const LinksContent = () => {
     if (window.confirm("Voulez-vous supprimer ce lien ?")) {
       try {
         await deleteUrl(id);
-
         setLinks((prevLinks) => prevLinks.filter((link) => link._id !== id));
+
+        toast.success("Lien supprimé avec succès !");
       } catch (error) {
         console.error(error.message);
+        toast.error("Échec de la suppression du lien.");
       }
     }
   };
@@ -138,7 +144,7 @@ const LinksContent = () => {
         <select
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
-          className="w-full lg:w-1/3 border rounded px-3 py-2 mt-0 lg:mt-7"
+          className="w-full px-3 py-2.5 lg:w-1/3 bg-white text-gray-700 border border-gray-200 text-sm rounded-md shadow-sm focus:outline-none focus:ring-1 mt-6 focus:ring-violet-500 focus:border-violet-500 transition-colors"
         >
           <option value="recent">📅 Plus récents</option>
           <option value="oldest">🕰️ Plus anciens</option>

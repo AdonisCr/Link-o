@@ -6,6 +6,7 @@ import {
   FaClock,
   FaExclamationCircle,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const API = axios.create({
   baseURL: "http://localhost:5000/api/tickets",
@@ -32,7 +33,10 @@ const Support = () => {
 
       setSubject("");
       setMessage("");
+
+      toast.success("Message envoyé  avec success !");
     } catch (error) {
+      toast.error("Erreur lors de l'envoi du ticket");
       console.error(
         "Erreur lors de l'envoi du ticket :",
         error.response?.data || error.message
