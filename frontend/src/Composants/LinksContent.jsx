@@ -21,6 +21,7 @@ const LinksContent = () => {
   const [showModal, setShowModal] = useState(false);
   const [openedMenuId, setOpenedMenuId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [sortOption, setSortOption] = useState("recent");
   const navigate = useNavigate();
 
   // Fonction pour récupérer les liens
@@ -89,9 +90,24 @@ const LinksContent = () => {
     navigate(`/dashboard/links/${link._id}`, { state: { link } });
   };
 
-  const filteredLinks = links.filter((link) =>
-    link.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredAndSortedLinks = [...links]
+    .filter((link) =>
+      link.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption === "recent")
+        return new Date(b.createdAt) - new Date(a.createdAt);
+
+      if (sortOption === "oldest")
+        return new Date(a.createdAt) - new Date(b.createdAt);
+
+      if (sortOption === "clicks") return (b.clicks || 0) - (a.clicks || 0);
+
+      if (sortOption === "least-clicks")
+        return (a.clicks || 0) - (b.clicks || 0);
+
+      return 0;
+    });
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -106,19 +122,34 @@ const LinksContent = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-3 lg:p-6 w-full">
-      <h2 className="text-lg font-semibold mb-4">Mes Liens</h2>
+      <div className="w-full flex items-center justify-between gap-4">
+        <div className="w-full lg:w-2/3">
+          <h2 className="text-lg font-semibold mb-4">Mes Liens</h2>
 
-      {/* Barre de recherche */}
-      <input
-        type="text"
-        placeholder="Rechercher un lien..."
-        className="border rounded px-3 py-2 w-full mb-4"
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+          {/* Barre de recherche */}
+          <input
+            type="text"
+            placeholder="Rechercher un lien..."
+            className="border rounded px-3 py-2 w-full mb-4"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="w-full lg:w-1/3 border rounded px-3 py-2 mt-0 lg:mt-7"
+        >
+          <option value="recent">📅 Plus récents</option>
+          <option value="oldest">🕰️ Plus anciens</option>
+          <option value="clicks">🔥 Plus populaires</option>
+          <option value="least-clicks">📈 Moins populaire</option>
+        </select>
+      </div>
 
       {/* Liste des liens */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-        {filteredLinks.map((link) => (
+        {filteredAndSortedLinks.map((link) => (
           <div
             key={link._id}
             className="flex flex-col p-4 border rounded-lg shadow-sm gap-3 overflow-hidden"
