@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import {
   FaCopy,
   FaShareAlt,
@@ -10,7 +13,6 @@ import {
 import { MdAdsClick } from "react-icons/md";
 import ShareModal from "./ShareModal";
 import { getUrlByUser, deleteUrl } from "../api/url";
-import { useNavigate } from "react-router-dom";
 import { getUser } from "../api/user";
 import bad_mood_icon from "../assets/images/mood-sad.svg";
 
@@ -21,6 +23,7 @@ const LinksContent = () => {
   const [showModal, setShowModal] = useState(false);
   const [openedMenuId, setOpenedMenuId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [sortOption, setSortOption] = useState("recent");
   const navigate = useNavigate();
 
   // Fonction pour récupérer les liens
@@ -63,8 +66,10 @@ const LinksContent = () => {
   const copyToClipboard = (text) => {
     navigator.clipboard
       .writeText(text)
-      .then(() => alert("Lien copié dans le presse-papiers !"))
-      .catch((err) => console.error("Erreur lors de la copie :", err));
+      .then(() => toast.success("Lien copié dans le presse-papiers !"))
+      .catch(() =>
+        toast.error("Une erreur est survenue lors de la copie du lien.")
+      );
   };
 
   // Supprimer un lien et mettre à jour la liste
@@ -72,10 +77,12 @@ const LinksContent = () => {
     if (window.confirm("Voulez-vous supprimer ce lien ?")) {
       try {
         await deleteUrl(id);
-
         setLinks((prevLinks) => prevLinks.filter((link) => link._id !== id));
+
+        toast.success("Lien supprimé avec succès !");
       } catch (error) {
         console.error(error.message);
+        toast.error("Échec de la suppression du lien.");
       }
     }
   };
@@ -89,9 +96,24 @@ const LinksContent = () => {
     navigate(`/dashboard/links/${link._id}`, { state: { link } });
   };
 
-  const filteredLinks = links.filter((link) =>
-    link.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredAndSortedLinks = [...links]
+    .filter((link) =>
+      link.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption === "recent")
+        return new Date(b.createdAt) - new Date(a.createdAt);
+
+      if (sortOption === "oldest")
+        return new Date(a.createdAt) - new Date(b.createdAt);
+
+      if (sortOption === "clicks") return (b.clicks || 0) - (a.clicks || 0);
+
+      if (sortOption === "least-clicks")
+        return (a.clicks || 0) - (b.clicks || 0);
+
+      return 0;
+    });
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -106,19 +128,34 @@ const LinksContent = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-3 lg:p-6 w-full">
-      <h2 className="text-lg font-semibold mb-4">Mes Liens</h2>
+      <div className="w-full flex items-center justify-between gap-4">
+        <div className="w-full lg:w-2/3">
+          <h2 className="text-lg font-semibold mb-4">Mes Liens</h2>
 
-      {/* Barre de recherche */}
-      <input
-        type="text"
-        placeholder="Rechercher un lien..."
-        className="border rounded px-3 py-2 w-full mb-4"
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+          {/* Barre de recherche */}
+          <input
+            type="text"
+            placeholder="Rechercher un lien..."
+            className="border rounded px-3 py-2 w-full mb-4"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="w-full px-3 py-2.5 lg:w-1/3 bg-white text-gray-700 border border-gray-200 text-sm rounded-md shadow-sm focus:outline-none focus:ring-1 mt-6 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+        >
+          <option value="recent">📅 Plus récents</option>
+          <option value="oldest">🕰️ Plus anciens</option>
+          <option value="clicks">🔥 Plus populaires</option>
+          <option value="least-clicks">📈 Moins populaire</option>
+        </select>
+      </div>
 
       {/* Liste des liens */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-        {filteredLinks.map((link) => (
+        {filteredAndSortedLinks.map((link) => (
           <div
             key={link._id}
             className="flex flex-col p-4 border rounded-lg shadow-sm gap-3 overflow-hidden"
