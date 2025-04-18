@@ -36,6 +36,7 @@ const Testimonials = () => {
     slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
+    arrows: true,
     autoplaySpeed: 7000,
     responsive: [
       {

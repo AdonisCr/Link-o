@@ -58,6 +58,7 @@ const FAQCard = ({ question, answer }) => {
 const FAQSection = () => {
   return (
     <section
+      id="FAQ"
       className="bg-purple-50 py-16 px-4 md:px-20 "
       style={{ fontFamily: "Winky Sans, sans-serif" }}
     >
@@ -70,7 +71,9 @@ const FAQSection = () => {
       </p>
       <div className="grid md:grid-cols-2 gap-6">
         {faqData.map((item, index) => (
-          <FAQCard key={index} {...item} />
+          <div key={index} className="self-start">
+            <FAQCard {...item} />
+          </div>
         ))}
       </div>
     </section>

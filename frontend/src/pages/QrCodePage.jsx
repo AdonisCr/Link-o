@@ -121,18 +121,18 @@ const QrCodeContent = () => {
     <div className="bg-white shadow-md rounded-lg p-3 lg:p-6 w-full">
       <div className="flex justify-between items-center mb-4 flex-col sm:flex-row gap-3">
         <h2 className="text-lg font-semibold flex items-center gap-2">
-          <FaQrcode className="text-violet-600" /> Mes QR Codes
+          <FaQrcode className="text-linac" /> Mes QR Codes
         </h2>
 
         <select
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
-          className="border rounded px-3 py-2"
+          className="font-semibold rounded-md px-2 lg:px-3 py-2 shadow-sm transition duration-300"
         >
-          <option value="recent">📅 Plus récents</option>
-          <option value="oldest">🕰️ Plus anciens</option>
-          <option value="clicks">🔥 Plus populaires</option>
-          <option value="least-clicks">📈 Moins populaire</option>
+          <option value="recent"> Plus récents</option>
+          <option value="oldest"> Plus anciens</option>
+          <option value="clicks"> Plus populaires</option>
+          <option value="least-clicks"> Moins populaire</option>
         </select>
       </div>
 

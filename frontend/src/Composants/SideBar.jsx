@@ -19,8 +19,8 @@ const SideBar = ({ activeTab, onTabChange }) => {
             to="/dashboard"
             className={`flex items-center gap-4 cursor-pointer rounded-lg py-2 md:pr-10 md:px-1 px-0 ${
               activeTab === "dashboard"
-                ? "bg-Whites text-Blacks"
-                : "text-Whites hover:bg-Whites hover:text-Blacks"
+                ? "bg-Whites text-Blacks "
+                : "text-Whites hover:bg-Whites hover:text-Blacks active:bg-Whites"
             }`}
           >
             <svg
