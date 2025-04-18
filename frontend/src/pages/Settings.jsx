@@ -3,6 +3,7 @@ import { deleteUser, getUser } from "../api/user";
 import { updateUser } from "../api/user";
 import { changePassword } from "../api/auth";
 import { useAuthNavigation } from "../hooks/useAuthNavigation";
+import { toast } from "react-toastify";
 
 const Settings = () => {
   const [username, setUsername] = useState("");
@@ -53,10 +54,10 @@ const Settings = () => {
       const updated = await updateUser(formData);
       setUser(updated);
       setPreviewImage(null);
-      alert("Profil mis à jour !");
+      toast.success("Profil mis à jour !");
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de la mise à jour.");
+      toast.error("Erreur lors de la mise à jour.");
     }
   };
 
@@ -75,7 +76,7 @@ const Settings = () => {
         newPassword,
       });
 
-      alert("Mot de passe changé avec succès !");
+      toast.success("Mot de passe changé avec succès !");
 
       setCurrentPassword("");
 
@@ -99,7 +100,7 @@ const Settings = () => {
           current: errorMsg,
         }));
       } else {
-        alert(errorMsg);
+        toast.error(errorMsg);
       }
     }
   };
@@ -110,7 +111,7 @@ const Settings = () => {
       logout(); // supprime le token et redirige
     } catch (err) {
       console.error(err);
-      alert("Échec de la suppression");
+      toast.error("Échec de la suppression");
     }
   };
 
@@ -160,7 +161,7 @@ const Settings = () => {
             className="w-full border px-3 py-2 rounded-md"
           />
 
-          <input
+          {/* <input
             type="file"
             accept="image/*"
             onChange={(e) => {
@@ -169,7 +170,7 @@ const Settings = () => {
               setPreviewImage(URL.createObjectURL(file));
             }}
             className="w-full"
-          />
+          /> */}
 
           {previewImage && (
             <img

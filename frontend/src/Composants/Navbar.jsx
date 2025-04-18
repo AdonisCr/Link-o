@@ -5,6 +5,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
 import { useAuthNavigation } from "../hooks/useAuthNavigation";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const [showCreateMenu, setShowCreateMenu] = useState(false);
@@ -51,6 +52,19 @@ const NavBar = () => {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => toast.success("Lien copié dans le presse-papiers !"))
+      .catch((err) =>
+        toast
+          .error("Erreur lors de la copie :", err)
+          .console.error("Erreur lors de la copie :", err)
+      );
+
+    setShowCreateMenu(false);
   };
 
   const { logout } = useAuthNavigation();
@@ -192,7 +206,8 @@ const NavBar = () => {
 
                     <button
                       className="text-violet-500 text-sm font-medium hover:text-violet-700"
-                      onClick={() => navigator.clipboard.writeText(shortUrl)}
+                      // onClick={() => navigator.clipboard.writeText(shortUrl)}
+                      onClick={() => copyToClipboard(shortUrl)}
                     >
                       Copier
                     </button>

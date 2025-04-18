@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { shortenUrl } from "../api/url";
+import { toast } from "react-toastify";
 
 function Short() {
   const [longUrl, setLongUrl] = useState("");
@@ -19,6 +20,7 @@ function Short() {
     try {
       const shortened = await shortenUrl(longUrl);
       setShortUrl(shortened);
+      toast.success("Lien raccourci avec success !");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -29,7 +31,7 @@ function Short() {
   const handleCopyUrl = () => {
     if (shortUrl) {
       navigator.clipboard.writeText(shortUrl);
-      alert("Lien copié !");
+      toast.success("Lien copié !");
     }
   };
 

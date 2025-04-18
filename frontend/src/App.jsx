@@ -16,6 +16,8 @@ import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import QrCodePage from "./pages/QrCodePage.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -44,6 +46,17 @@ const App = () => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </Router>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        theme="light"
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </AuthProvider>
   );
 };

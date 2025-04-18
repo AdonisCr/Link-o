@@ -14,6 +14,7 @@ import { getAllUserQrCodes, deleteQrCode } from "../api/url";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../api/user";
 import bad_mood_icon from "../assets/images/mood-sad.svg";
+import { toast } from "react-toastify";
 
 const QrCodeContent = () => {
   const [qrCodes, setQrCodes] = useState([]);
@@ -52,21 +53,15 @@ const QrCodeContent = () => {
     fetchUserAndQrCodes();
   }, []);
 
-  // Copier le lien
-  const copyToClipboard = (text) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => alert("Lien copié dans le presse-papiers !"))
-      .catch((err) => console.error("Erreur lors de la copie :", err));
-  };
-
   // Supprimer un QR code
   const handleDelete = async (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce QR code ?")) {
       try {
         await deleteQrCode(id);
         setQrCodes((prev) => prev.filter((qr) => qr._id !== id));
+        toast.success("Qr Code supprimer avec success !");
       } catch (error) {
+        toast.error("Erreur lors de la suppression");
         console.error("Erreur lors de la suppression:", error.message);
       }
     }
@@ -127,7 +122,7 @@ const QrCodeContent = () => {
         <select
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
-          className="font-semibold rounded-md px-2 lg:px-3 py-2 shadow-sm transition duration-300"
+          className="w-full px-3 py-2.5 lg:w-1/3 bg-white text-gray-700 border border-gray-200 text-sm rounded-md shadow-sm focus:outline-none focus:ring-1 mt-6 focus:ring-violet-500 focus:border-violet-500 transition-colors"
         >
           <option value="recent"> Plus récents</option>
           <option value="oldest"> Plus anciens</option>
@@ -160,18 +155,11 @@ const QrCodeContent = () => {
                   >
                     <FaEllipsisH />
                   </button>
+
                   {openedMenuId === qr._id && (
                     <div className="absolute right-0 mt-2 w-44 bg-white shadow-xl rounded-lg z-50 border border-gray-100 animate-fade-in">
                       <div className="absolute top-[-6px] right-4 w-3 h-3 bg-white rotate-45 shadow-sm border-l border-t border-gray-100"></div>
-                      <button
-                        onClick={() => {
-                          copyToClipboard(qr.shortUrl);
-                          setOpenedMenuId(null);
-                        }}
-                        className="flex items-center gap-2 w-full px-4 lg:py-3 py-2 text-sm text-gray-700 hover:bg-violet-50 transition-colors"
-                      >
-                        <FaCopy className="text-violet-600" /> Copier
-                      </button>
+
                       <button
                         onClick={() => {
                           handleShare(qr);
@@ -181,6 +169,7 @@ const QrCodeContent = () => {
                       >
                         <FaShareAlt className="text-violet-600" /> Partager
                       </button>
+
                       <button
                         onClick={() => {
                           handleViewDetails(qr);
@@ -190,6 +179,7 @@ const QrCodeContent = () => {
                       >
                         <FaEye className="text-violet-600" /> Détails
                       </button>
+
                       <button
                         onClick={() => {
                           handleDelete(qr._id);
@@ -215,6 +205,7 @@ const QrCodeContent = () => {
                 <p className="font-bold text-black truncate text-base hover:underline cursor-pointer">
                   {qr.title || "Sans titre"}
                 </p>
+
                 <a
                   href={qr.shortUrl}
                   target="_blank"
@@ -223,6 +214,7 @@ const QrCodeContent = () => {
                 >
                   {qr.shortUrl}
                 </a>
+
                 <a
                   href={qr.originalUrl}
                   target="_blank"
@@ -240,6 +232,7 @@ const QrCodeContent = () => {
                 <MdAdsClick className="text-lg" />
                 <span>{qr.clicks || 0} clics</span>
               </p>
+
               <p className="flex items-center gap-1">
                 <FaCalendar className="text-lg" />
                 <span>{formatDate(qr.createdAt)}</span>
